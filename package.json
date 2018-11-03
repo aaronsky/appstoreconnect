@@ -1,0 +1,21 @@
+{
+  "name": "asc",
+  "version": "1.0.0",
+  "description": "An App Store Connect API client for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Sky <aaronsky@skyaaron.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaronsky/asc.git"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.2"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.3.0"
+  }
+}
