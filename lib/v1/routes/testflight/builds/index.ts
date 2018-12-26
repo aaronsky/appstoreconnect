@@ -397,7 +397,7 @@ interface ListBuildsQuery {
     /**
      * Number of resources to return.
      */
-    limit?: number
+    // limit?: number
     /**
      * Attributes by which to sort.
      */
@@ -410,7 +410,7 @@ interface ListBuildsQuery {
         | 'version'
         | '+version'
         | '-version')[]
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */
@@ -468,7 +468,7 @@ interface ReadBuildInformationQuery {
         | 'buildBetaDetail'
         | 'individualTesters'
         | 'preReleaseVersion')[]
-    limitField?: {
+    limit?: {
         /**
          * Fields to return for included related types.
          */

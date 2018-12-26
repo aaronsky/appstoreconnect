@@ -1,9 +1,10 @@
 import * as api from '../api'
+import * as auth from './auth'
 import * as routes from './routes'
 
 const V1_BASEURL = 'https://api.appstoreconnect.apple.com/v1'
 
-export function v1(token?: api.Token) {
+export function v1(token?: string) {
     return api.makeAPI(V1_BASEURL, token)
 }
 export namespace v1 {
@@ -11,8 +12,8 @@ export namespace v1 {
     export const users = routes.users
     export const userInvitations = routes.userInvitations
     export const financeReports = routes.financeReports
-    export const token = api.token
-    export const tokenAsync = api.tokenAsync
+    export const token = auth.token
+    export const tokenAsync = auth.tokenAsync
 }
 
 export type AppType =

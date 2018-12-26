@@ -6,6 +6,7 @@ import {
     ResourceLinks,
 } from '../../../paging'
 import { App, Platform } from '../apps/types'
+import { DateTime } from 'luxon'
 
 /**
  * The data structure that represents the resource.
@@ -42,7 +43,7 @@ export interface AppEncryptionDeclaration {
         /**
          * The URL to the file of your submitted export compliance documentation.
          */
-        documentUrl?: string
+        documentUrl?: URL
         /**
          * A Boolean value that indicates your app is exempt based on your use of encryption and the app's availability.
          */
@@ -62,7 +63,7 @@ export interface AppEncryptionDeclaration {
         /**
          * The date and time you submitted your declaration.
          */
-        uploadedDate?: string
+        uploadedDate?: DateTime
     }
     /**
      * The opaque resource ID that uniquely identifies the resource.

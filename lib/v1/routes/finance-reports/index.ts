@@ -1,4 +1,3 @@
-import { Gunzip } from 'zlib'
 import { API, GET } from '../../../api'
 import { GetFinanceReportsQuery, GetSalesReportsQuery } from './types'
 
@@ -9,7 +8,7 @@ import { GetFinanceReportsQuery, GetSalesReportsQuery } from './types'
 export function downloadFinancialReports(
     api: API,
     query: GetFinanceReportsQuery
-): Promise<Gunzip> {
+): Promise<Buffer> {
     return GET(api, '/financeReports', { query })
 }
 
@@ -20,6 +19,6 @@ export function downloadFinancialReports(
 export function downloadSalesReports(
     api: API,
     query: GetSalesReportsQuery
-): Promise<Gunzip> {
+): Promise<Buffer> {
     return GET(api, '/salesReports', { query })
 }

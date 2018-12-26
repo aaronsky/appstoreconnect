@@ -99,7 +99,7 @@ interface ListInvitedUsersQuery {
     /**
      * Number of resources to return.
      */
-    limit?: number
+    // limit?: number
     /**
      * Attributes by which to sort.
      */
@@ -118,7 +118,7 @@ interface ListInvitedUsersQuery {
          */
         visibleApps?: string[]
     }
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */
@@ -149,7 +149,7 @@ interface ReadUserInvitationInformationQuery {
      * Relationship data to include in the response.
      */
     include?: string
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */

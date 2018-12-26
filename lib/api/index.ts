@@ -1,57 +1,24 @@
-import jwt from 'jsonwebtoken'
-import qs from 'querystring'
+import { DateTime } from 'luxon'
 import request from 'request'
+import { URL } from 'url'
+import { ErrorResponse } from '../v1/error'
 
 export interface API {
     baseUrl: string
-    token: Token | null
+    token: string | null
 }
 
-export function makeAPI(baseUrl: string, token?: Token): API {
+export function makeAPI(baseUrl: string, token?: string): API {
     return { baseUrl, token: token || null }
 }
 
-export type Token = string
+export class APIError extends Error {
+    readonly response: ErrorResponse
 
-export function token(
-    privateKey: jwt.Secret,
-    issuerId: string,
-    keyId: string
-): Token {
-    return jwt.sign({}, privateKey, {
-        algorithm: 'ES256',
-        keyid: keyId,
-        audience: 'appstoreconnect-v1',
-        expiresIn: 1200,
-        issuer: issuerId,
-    })
-}
-
-export function tokenAsync(
-    privateKey: jwt.Secret,
-    issuerId: string,
-    keyId: string
-): Promise<Token> {
-    return new Promise((resolve, reject) => {
-        jwt.sign(
-            {},
-            privateKey,
-            {
-                algorithm: 'ES256',
-                keyid: keyId,
-                audience: 'appstoreconnect-v1',
-                expiresIn: 1200,
-                issuer: issuerId,
-            },
-            (err: Error, token: string) => {
-                if (err) {
-                    reject(err)
-                    return
-                }
-                resolve(token)
-            }
-        )
-    })
+    constructor(code: number, message: string, response: ErrorResponse) {
+        super(`${code} ${message}`)
+        this.response = response
+    }
 }
 
 interface APIOptions {
@@ -114,7 +81,11 @@ function call<T>(
             {
                 baseUrl: api.baseUrl,
                 method,
-                qs: querystring(options.query),
+                qs: sanitizeJSON(options.query),
+                qsStringifyOptions: {
+                    indices: false,
+                    encodeValuesOnly: true,
+                },
                 auth: api.token
                     ? {
                           bearer: api.token,
@@ -122,47 +93,89 @@ function call<T>(
                     : undefined,
                 body: options.body,
             },
-            (error, _response, body) => {
-                if (error) {
-                    console.error(error)
-                    reject(error)
+            (_error, response, body) => {
+                if (!body) {
+                    resolve()
+                    return
+                } else if (typeof body !== 'string') {
+                    resolve(body)
                     return
                 }
-                body && console.log(body)
-                resolve()
+                let json
+                try {
+                    json = JSON.parse(body, jsonParser)
+                } catch (jsonError) {
+                    reject(jsonError)
+                    return
+                }
+                if (json.errors && Array.isArray(json.errors)) {
+                    const apiError = new APIError(
+                        response.statusCode,
+                        response.statusMessage,
+                        json
+                    )
+                    reject(apiError)
+                    return
+                }
+                resolve(json)
             }
         )
     })
 }
 
-function querystring(query: object | undefined): string {
-    if (!query) {
-        return ''
+function jsonParser(_key: any, value: any) {
+    if (typeof value === 'string') {
+        const url = urlStringToURL(value)
+        if (url) {
+            return url
+        }
+
+        const date = dateStringToDate(value)
+        if (date) {
+            return date
+        }
     }
-    const queries = Object.entries(query).reduce(
-        (accumulator, [key, value]) => {
-            let insertions: object
-            if (typeof value === 'object') {
-                let rootKey = key
-                if (key === 'limitField') {
-                    rootKey = 'limit'
-                }
-                insertions = Object.entries(value).reduce(
-                    (innerAcc, [innerKey, innerValue]) => ({
-                        ...innerAcc,
-                        [`${rootKey}[${innerKey}]`]: innerValue,
-                    }),
-                    {}
-                )
-            } else {
-                insertions = { [key]: value }
-            }
-            return {
-                ...accumulator,
-                ...insertions,
-            }
-        },
-        {}
-    )
-    return qs.stringify(queries)
+    return value
+}
+
+function urlStringToURL(value: string): URL | undefined {
+    try {
+        const url = new URL(value)
+        if (url) {
+            return url
+        }
+    } catch {}
+}
+
+function dateStringToDate(value: string): DateTime | undefined {
+    const date = DateTime.fromISO(value)
+    if (date.isValid) {
+        return date
+    }
+}
+
+const isObject = (value: any) => typeof value === 'object' && value !== null
+const isDateTime = (value: any) => (value && value.isLuxonDateTime) || false
+const isURL = (value: any) =>
+    (value && value.href && typeof value.href === 'string') || false
+
+function sanitizeJSON(object: object | undefined): object | undefined {
+    if (object === undefined) {
+        return
+    }
+    if (isObject(object)) {
+        if (Array.isArray(object)) {
+            object = object.map(sanitizeJSON)
+        } else if (isDateTime(object)) {
+            object = (object as any).toISO()
+        } else if (isURL(object)) {
+            object = (object as any).href
+        } else {
+            object = Object.entries(object).reduce(
+                (acc, [key, value]) => ({ ...acc, [key]: sanitizeJSON(value) }),
+                {}
+            )
+        }
+    }
+    return object
 }

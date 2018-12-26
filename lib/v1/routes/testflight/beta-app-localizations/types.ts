@@ -49,11 +49,11 @@ export interface BetaAppLocalization {
         /**
          * A URL with information about your app. This URL is visible to testers in the TestFlight app.
          */
-        marketingUrl?: string
+        marketingUrl?: URL
         /**
          * A URL that links to your company’s privacy policy. Privacy policies are recommended for all apps that collect user or device-related data or as otherwise required by law.
          */
-        privacyPolicyUrl?: string
+        privacyPolicyUrl?: URL
         /**
          * Your company’s privacy policy. Privacy policies are recommended for all apps that collect user or device-related data, or as otherwise required by law.
          */
@@ -123,11 +123,11 @@ export interface BetaAppLocalizationCreateRequest {
             /**
              * A URL with information about your app. This URL is visible to testers in the TestFlight app.
              */
-            marketingUrl?: string
+            marketingUrl?: URL
             /**
              * A URL that links to your company’s privacy policy. Privacy policies are recommended for all apps that collect user or device-related data or as otherwise required by law.
              */
-            privacyPolicyUrl?: string
+            privacyPolicyUrl?: URL
             /**
              * Your company’s privacy policy. Privacy policies are recommended for all apps that collect user or device-related data, or as otherwise required by law.
              */
@@ -186,11 +186,11 @@ export interface BetaAppLocalizationUpdateRequest {
             /**
              * A URL with information about your app. This URL is visible to testers in the TestFlight app.
              */
-            marketingUrl?: string
+            marketingUrl?: URL
             /**
              * A URL that links to your company’s privacy policy. Privacy policies are recommended for all apps that collect user or device-related data or as otherwise required by law.
              */
-            privacyPolicyUrl?: string
+            privacyPolicyUrl?: URL
             /**
              * Your company’s privacy policy. Privacy policies are recommended for all apps that collect user or device-related data, or as otherwise required by law.
              */

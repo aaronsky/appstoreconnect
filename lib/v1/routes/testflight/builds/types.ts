@@ -12,6 +12,7 @@ import { BetaBuildLocalization } from '../beta-build-localizations/types'
 import { BetaTester } from '../beta-testers/types'
 import { BuildBetaDetail } from '../build-beta-details/types'
 import { PrereleaseVersion } from '../prerelease-versions/types'
+import { DateTime } from 'luxon'
 
 /**
  * The data structure that represents the resource.
@@ -48,11 +49,11 @@ export interface Build {
         /**
          * The date and time the build was uploaded to App Store Connect.
          */
-        uploadedDate?: string
+        uploadedDate?: DateTime
         /**
          * The date and time the build will auto-expire and no longer be available for testing.
          */
-        expirationDate?: string
+        expirationDate?: DateTime
     }
     /**
      * The opaque resource ID that uniquely identifies the resource.
@@ -330,7 +331,7 @@ export interface BuildBetaGroupsLinkagesRequest {
  * An image asset, including its height, width, and template URL.
  */
 export interface ImageAsset {
-    templateUrl?: string
+    templateUrl?: URL
     height?: number
     width?: number
 }

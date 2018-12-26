@@ -132,7 +132,7 @@ interface ListUsersQuery {
     /**
      * Number of resources to return.
      */
-    limit?: number
+    // limit?: number
     /**
      * Attributes by which to sort.
      */
@@ -151,7 +151,7 @@ interface ListUsersQuery {
          */
         username?: string[]
     }
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */
@@ -181,7 +181,7 @@ interface ReadUserInformationQuery {
      * Relationship data to include in the response.
      */
     include?: string
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */

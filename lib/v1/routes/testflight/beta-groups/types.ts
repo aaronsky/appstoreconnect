@@ -8,6 +8,7 @@ import {
 import { App } from '../apps/types'
 import { BetaTester } from '../beta-testers/types'
 import { Build } from '../builds/types'
+import { DateTime } from 'luxon'
 
 /**
  * The data structure that represents the resource.
@@ -48,7 +49,7 @@ export interface BetaGroup {
         /**
          * The creation date of the beta group.
          */
-        createdDate?: string
+        createdDate?: DateTime
     }
     /**
      * The opaque resource ID that uniquely identifies the resource.

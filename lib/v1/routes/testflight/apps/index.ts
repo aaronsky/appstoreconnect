@@ -251,7 +251,7 @@ interface ListAppsQuery {
     /**
      * Number of resources to return.
      */
-    limit?: number
+    // limit?: number
     /**
      * Attributes by which to sort.
      */
@@ -295,7 +295,7 @@ interface ListAppsQuery {
          */
         betaGroups?: BetaGroupType[]
     }
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */
@@ -356,7 +356,7 @@ interface ReadAppInformationQuery {
         | 'betaLicenseAgreement'
         | 'builds'
         | 'preReleaseVersions'[]
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */

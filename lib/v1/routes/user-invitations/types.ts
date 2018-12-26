@@ -7,6 +7,7 @@ import {
 } from '../../paging'
 import { App } from '../testflight/apps/types'
 import { UserRole } from '../users/types'
+import { DateTime } from 'luxon'
 
 /**
  * The data structure that represents the resource.
@@ -66,7 +67,7 @@ interface UserInvitationAttributes {
     /**
      * The expiration date of the pending invitation.
      */
-    expirationDate?: string
+    expirationDate?: DateTime
     /**
      * A Boolean value that indicates the user's specified role allows access
      * to the provisioning functionality on the Apple Developer website.

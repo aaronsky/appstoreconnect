@@ -131,12 +131,12 @@ interface ListPrereleaseVersionsQuery {
     /**
      * Number of resources to return.
      */
-    limit?: number
+    // limit?: number
     /**
      * Attributes by which to sort.
      */
     sort?: ('version' | '+version' | '-version')[]
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */
@@ -163,7 +163,7 @@ interface ReadPrereleaseVersionInformationQuery {
      * Relationship data to include in the response.
      */
     include?: ('apps' | 'builds')[]
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */

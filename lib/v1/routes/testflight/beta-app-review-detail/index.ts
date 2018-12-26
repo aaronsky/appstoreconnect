@@ -94,7 +94,7 @@ interface ListBetaAppReviewDetailsQuery {
     /**
      * Number of resources to return.
      */
-    limit: number
+    limit?: number
 }
 
 interface ReadBetaAppReviewDetailInformationQuery {

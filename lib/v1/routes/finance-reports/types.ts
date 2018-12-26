@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 export interface GetFinanceReportsQuery {
     filter?: {
         /**
@@ -10,7 +12,7 @@ export interface GetFinanceReportsQuery {
          * The date of the report you wish to download based on the
          * Apple Fiscal Calendar. The date is specified in the YYYY-MM format.
          */
-        reportDate: string
+        reportDate: DateTime
         /**
          * This value is always 'FINANCIAL'.
          */
@@ -35,7 +37,7 @@ export interface GetSalesReportsQuery {
          *
          * @see {@link https://help.apple.com/itc/appssalesandtrends/#/itc48f999955}
          */
-        reportDate?: string
+        reportDate?: DateTime
         /**
          * The report sub type to download.
          */

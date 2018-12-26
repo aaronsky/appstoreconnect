@@ -255,8 +255,8 @@ interface ListBetaTestersQuery {
     /**
      * Number of resources to return.
      */
-    limit?: number
-    limitField?: {
+    // limit?: number
+    limit?: {
         /**
          * Number of included related resources to return.
          */
@@ -308,7 +308,7 @@ interface ReadBetaTesterInformationQuery {
      * Relationship data to include in the response.
      */
     include?: ('apps' | 'betaGroups' | 'builds')[]
-    limitField?: {
+    limit?: {
         /**
          * Number of included related resources to return.
          */
