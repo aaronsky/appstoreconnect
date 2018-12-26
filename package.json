@@ -2,7 +2,7 @@
   "name": "asc",
   "version": "1.0.0",
   "description": "An App Store Connect API client for Node.js",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,10 +12,24 @@
     "type": "git",
     "url": "https://github.com/aaronsky/asc.git"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "devDependencies": {
-    "@types/node": "^10.12.2"
+    "@types/node": "^10.12.2",
+    "@types/request": "^2.48.1",
+    "husky": "^1.2.1",
+    "prettier": "^1.15.3",
+    "pretty-quick": "^1.8.0",
+    "request": "^2.88.0",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
     "jsonwebtoken": "^8.3.0"
+  },
+  "husky": {
+      "hooks": {
+          "pre-commit": "pretty-quick --staged"
+      }
   }
 }
