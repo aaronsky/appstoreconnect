@@ -1,5 +1,5 @@
 {
-  "name": "asc",
+  "name": "appstoreconnect",
   "version": "1.0.0",
   "description": "An App Store Connect API client for Node.js",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aaronsky/asc.git"
+    "url": "https://github.com/aaronsky/appstoreconnect.git"
   },
   "engines": {
     "node": ">=8.0.0"
