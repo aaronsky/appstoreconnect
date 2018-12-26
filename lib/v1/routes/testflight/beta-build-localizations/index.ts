@@ -1,22 +1,24 @@
-import v1, { BuildType, BetaBuildLocalizationType, Locale } from '../../..'
-import {
-    BetaBuildLocalizationsResponse,
-    BetaBuildLocalizationResponse,
-    BetaBuildLocalizationBuildLinkageResponse,
-    BetaBuildLocalizationCreateRequest,
-    BetaBuildLocalizationUpdateRequest,
-} from './types'
+import { BetaBuildLocalizationType, BuildType, Locale } from '../../..'
+import { API, DELETE, GET, PATCH, POST } from '../../../../api'
 import { ResourceType } from '../../../data'
 import { BuildResponse } from '../builds/types'
+import {
+    BetaBuildLocalizationBuildLinkageResponse,
+    BetaBuildLocalizationCreateRequest,
+    BetaBuildLocalizationResponse,
+    BetaBuildLocalizationsResponse,
+    BetaBuildLocalizationUpdateRequest,
+} from './types'
 
 /**
  * Find and list beta build localizations currently associated with apps.
  * @param query
  */
 export function listBetaBuildLocalizations(
+    api: API,
     query: ListBetaBuildLocalizationsQuery
 ): Promise<BetaBuildLocalizationsResponse> {
-    return v1.GET(`/betaBuildLocalizations`, { query })
+    return GET(api, `/betaBuildLocalizations`, { query })
 }
 
 /**
@@ -25,10 +27,11 @@ export function listBetaBuildLocalizations(
  * @param query
  */
 export function readBetaBuildLocalizationInformation(
+    api: API,
     id: string,
     query: ReadBetaBuildLocalizationInformationQuery
 ): Promise<BetaBuildLocalizationResponse> {
-    return v1.GET(`/betaBuildLocalizations/${id}`, { query })
+    return GET(api, `/betaBuildLocalizations/${id}`, { query })
 }
 
 /**
@@ -37,10 +40,11 @@ export function readBetaBuildLocalizationInformation(
  * @param query
  */
 export function readBuildInformationForBetaBuildLocalization(
+    api: API,
     id: string,
     query: ReadBuildInformationForBetaBuildLocalizationQuery
 ): Promise<BuildResponse> {
-    return v1.GET(`/betaBuildLocalizations/${id}/build`, { query })
+    return GET(api, `/betaBuildLocalizations/${id}/build`, { query })
 }
 
 /**
@@ -48,9 +52,10 @@ export function readBuildInformationForBetaBuildLocalization(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBuildIDForBetaBuildLocalization(
+    api: API,
     id: string
 ): Promise<BetaBuildLocalizationBuildLinkageResponse> {
-    return v1.GET(`/betaBuildLocalizations/${id}/relationships/build`)
+    return GET(api, `/betaBuildLocalizations/${id}/relationships/build`)
 }
 
 /**
@@ -58,9 +63,10 @@ export function getBuildIDForBetaBuildLocalization(
  * @param body
  */
 export function createBetaBuildLocalization(
+    api: API,
     body: BetaBuildLocalizationCreateRequest
 ): Promise<BetaBuildLocalizationResponse> {
-    return v1.POST(`/betaBuildLocalizations`, { body })
+    return POST(api, `/betaBuildLocalizations`, { body })
 }
 
 /**
@@ -69,18 +75,22 @@ export function createBetaBuildLocalization(
  * @param body
  */
 export function modifyBetaBuildLocalization(
+    api: API,
     id: string,
     body: BetaBuildLocalizationUpdateRequest
 ): Promise<BetaBuildLocalizationResponse> {
-    return v1.PATCH(`/betaBuildLocalizations/${id}`, { body })
+    return PATCH(api, `/betaBuildLocalizations/${id}`, { body })
 }
 
 /**
  * Delete a specific beta build localization associated with a build.
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
-export function deleteBetaBuildLocalization(id: string): Promise<void> {
-    return v1.DELETE(`/betaBuildLocalizations/${id}`)
+export function deleteBetaBuildLocalization(
+    api: API,
+    id: string
+): Promise<void> {
+    return DELETE(api, `/betaBuildLocalizations/${id}`)
 }
 
 interface ListBetaBuildLocalizationsQuery {

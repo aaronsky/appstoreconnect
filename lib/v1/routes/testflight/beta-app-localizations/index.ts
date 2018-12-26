@@ -1,22 +1,24 @@
-import {
-    BetaAppLocalizationUpdateRequest,
-    BetaAppLocalizationCreateRequest,
-    BetaAppLocalizationsResponse,
-    BetaAppLocalizationResponse,
-    BetaAppLocalizationAppLinkageResponse,
-} from './types'
-import v1, { AppType, BetaAppLocalizationType } from '../../..'
-import { AppResponse } from '../apps/types'
+import { AppType, BetaAppLocalizationType } from '../../..'
+import { API, DELETE, GET, PATCH, POST } from '../../../../api'
 import { ResourceType } from '../../../data'
+import { AppResponse } from '../apps/types'
+import {
+    BetaAppLocalizationAppLinkageResponse,
+    BetaAppLocalizationCreateRequest,
+    BetaAppLocalizationResponse,
+    BetaAppLocalizationsResponse,
+    BetaAppLocalizationUpdateRequest,
+} from './types'
 
 /**
  * Find and list beta app localizations for all apps and locales.
  * @param query
  */
 export function listBetaAppLocalizations(
+    api: API,
     query: ListBetaAppLocalizationsQuery
 ): Promise<BetaAppLocalizationsResponse> {
-    return v1.GET(`/betaAppLocalizations`, { query })
+    return GET(api, `/betaAppLocalizations`, { query })
 }
 
 /**
@@ -25,10 +27,11 @@ export function listBetaAppLocalizations(
  * @param query
  */
 export function readBetaAppLocalizationInformation(
+    api: API,
     id: string,
     query: ReadBetaAppLocalizationInformationQuery
 ): Promise<BetaAppLocalizationResponse> {
-    return v1.GET(`/betaAppLocalizations/${id}`, { query })
+    return GET(api, `/betaAppLocalizations/${id}`, { query })
 }
 
 /**
@@ -37,10 +40,11 @@ export function readBetaAppLocalizationInformation(
  * @param query
  */
 export function readAppInformationForBetaAppLocalization(
+    api: API,
     id: string,
     query: ReadAppInformationForBetaAppLocalizationQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/betaAppLocalizations/${id}/app`, { query })
+    return GET(api, `/betaAppLocalizations/${id}/app`, { query })
 }
 
 /**
@@ -48,9 +52,10 @@ export function readAppInformationForBetaAppLocalization(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getAppResourceIDForBetaAppLocalization(
+    api: API,
     id: string
 ): Promise<BetaAppLocalizationAppLinkageResponse> {
-    return v1.GET(`/betaAppLocalizations/${id}/relationships/app`)
+    return GET(api, `/betaAppLocalizations/${id}/relationships/app`)
 }
 
 /**
@@ -58,9 +63,10 @@ export function getAppResourceIDForBetaAppLocalization(
  * @param body
  */
 export function createBetaAppLocalization(
+    api: API,
     body: BetaAppLocalizationCreateRequest
 ): Promise<BetaAppLocalizationResponse> {
-    return v1.POST(`/betaAppLocalizations`, { body })
+    return POST(api, `/betaAppLocalizations`, { body })
 }
 
 /**
@@ -69,18 +75,19 @@ export function createBetaAppLocalization(
  * @param body
  */
 export function modifyBetaAppLocalization(
+    api: API,
     id: string,
     body: BetaAppLocalizationUpdateRequest
 ): Promise<BetaAppLocalizationResponse> {
-    return v1.PATCH(`/betaAppLocalizations/${id}`, { body })
+    return PATCH(api, `/betaAppLocalizations/${id}`, { body })
 }
 
 /**
  * Delete a beta app localization associated with an app.
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
-export function deleteBetaAppLocalization(id: string): Promise<void> {
-    return v1.DELETE(`/betaAppLocalizations/${id}`)
+export function deleteBetaAppLocalization(api: API, id: string): Promise<void> {
+    return DELETE(api, `/betaAppLocalizations/${id}`)
 }
 
 interface ListBetaAppLocalizationsQuery {

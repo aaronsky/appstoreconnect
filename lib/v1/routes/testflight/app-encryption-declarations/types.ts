@@ -1,12 +1,11 @@
-import { App, Platform } from '../apps/types'
-
+import { Data, Links, ResourceType } from '../../../data'
 import {
+    DocumentLinks,
     PagedDocumentLinks,
     PagingInformation,
-    DocumentLinks,
     ResourceLinks,
 } from '../../../paging'
-import { Data, ResourceType, Links } from '../../../data'
+import { App, Platform } from '../apps/types'
 
 /**
  * The data structure that represents the resource.

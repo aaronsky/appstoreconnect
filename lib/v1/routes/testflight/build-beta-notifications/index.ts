@@ -1,15 +1,16 @@
+import { API, POST } from '../../../../api'
 import {
     BuildBetaNotificationCreateRequest,
     BuildBetaNotificationResponse,
 } from './types'
-import v1 from '../../..'
 
 /**
  * Send a notification to all assigned beta testers that a build is available for testing.
  * @param body
  */
 export function sendNotificationOfAvailableBuild(
+    api: API,
     body: BuildBetaNotificationCreateRequest
 ): Promise<BuildBetaNotificationResponse> {
-    return v1.POST('/buildBetaNotifications', { body })
+    return POST(api, '/buildBetaNotifications', { body })
 }

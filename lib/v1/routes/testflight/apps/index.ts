@@ -1,40 +1,44 @@
-import v1, {
-    BetaLicenseAgreementType,
-    PreReleaseVersionType,
-    BetaAppReviewDetailType,
-    BetaAppLocalizationType,
-    BuildType,
-    BetaGroupType,
-} from '../../../'
-import {
-    AppsResponse,
-    AppResponse,
-    AppBetaTestersLinkagesRequest,
-    AppBetaGroupsLinkagesResponse,
-    AppBuildsLinkagesResponse,
-    AppPreReleaseVersionsLinkagesResponse,
-    AppBetaLicenseAgreementLinkageResponse,
-} from './types'
 import { AppType } from '../../..'
-import { BuildsResponse } from '../builds/types'
 import {
-    BetaAppReviewDetailResponse,
+    BetaAppLocalizationType,
+    BetaAppReviewDetailType,
+    BetaGroupType,
+    BetaLicenseAgreementType,
+    BuildType,
+    PreReleaseVersionType,
+} from '../../../'
+import { API, DELETE, GET } from '../../../../api'
+import {
+    AppBetaAppLocalizationsLinkagesResponse,
+    BetaAppLocalizationsResponse,
+} from '../beta-app-localizations/types'
+import {
     AppBetaAppReviewDetailLinkageResponse,
+    BetaAppReviewDetailResponse,
 } from '../beta-app-review-detail/types'
 import { BetaGroupsResponse } from '../beta-groups/types'
-import { PreReleaseVersionsResponse } from '../prerelease-versions/types'
 import { BetaLicenseAgreementResponse } from '../beta-license-agreements/types'
+import { BuildsResponse } from '../builds/types'
+import { PreReleaseVersionsResponse } from '../prerelease-versions/types'
 import {
-    BetaAppLocalizationsResponse,
-    AppBetaAppLocalizationsLinkagesResponse,
-} from '../beta-app-localizations/types'
+    AppBetaGroupsLinkagesResponse,
+    AppBetaLicenseAgreementLinkageResponse,
+    AppBetaTestersLinkagesRequest,
+    AppBuildsLinkagesResponse,
+    AppPreReleaseVersionsLinkagesResponse,
+    AppResponse,
+    AppsResponse,
+} from './types'
 
 /**
  * Find and list apps added in App Store Connect.
  * @param query
  */
-export function listApps(query: ListAppsQuery): Promise<AppsResponse> {
-    return v1.GET('/apps', { query })
+export function listApps(
+    api: API,
+    query: ListAppsQuery
+): Promise<AppsResponse> {
+    return GET(api, '/apps', { query })
 }
 
 /**
@@ -43,10 +47,11 @@ export function listApps(query: ListAppsQuery): Promise<AppsResponse> {
  * @param query
  */
 export function readAppInformation(
+    api: API,
     id: string,
     query: ReadAppInformationQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/apps/${id}`, { query })
+    return GET(api, `/apps/${id}`, { query })
 }
 
 /**
@@ -55,10 +60,11 @@ export function readAppInformation(
  * @param body
  */
 export function removeBetaTestersFromAllGroupsAndAppBuilds(
+    api: API,
     id: string,
     body: AppBetaTestersLinkagesRequest
 ): Promise<void> {
-    return v1.DELETE(`/apps/${id}/relationships/betaTesters`, { body })
+    return DELETE(api, `/apps/${id}/relationships/betaTesters`, { body })
 }
 
 /**
@@ -67,10 +73,11 @@ export function removeBetaTestersFromAllGroupsAndAppBuilds(
  * @param query
  */
 export function listAllBetaGroupsForApp(
+    api: API,
     id: string,
     query: ListAllBetaGroupsForAppQuery
 ): Promise<BetaGroupsResponse> {
-    return v1.GET(`/apps/${id}/betaGroups`, { query })
+    return GET(api, `/apps/${id}/betaGroups`, { query })
 }
 
 /**
@@ -79,10 +86,11 @@ export function listAllBetaGroupsForApp(
  * @param query
  */
 export function getAllBetaGroupIDsForApp(
+    api: API,
     id: string,
     query: GetAllBetaGroupIDsForAppQuery
 ): Promise<AppBetaGroupsLinkagesResponse> {
-    return v1.GET(`/apps/${id}/relationships/betaGroups`, { query })
+    return GET(api, `/apps/${id}/relationships/betaGroups`, { query })
 }
 
 /**
@@ -91,10 +99,11 @@ export function getAllBetaGroupIDsForApp(
  * @param query
  */
 export function listAllBuildsForApp(
+    api: API,
     id: string,
     query: ListAllBuildsForAppQuery
 ): Promise<BuildsResponse> {
-    return v1.GET(`/apps/${id}/builds`, { query })
+    return GET(api, `/apps/${id}/builds`, { query })
 }
 
 /**
@@ -103,10 +112,11 @@ export function listAllBuildsForApp(
  * @param query
  */
 export function getAllBuildIDsForApp(
+    api: API,
     id: string,
     query: GetAllBuildIDsForAppQuery
 ): Promise<AppBuildsLinkagesResponse> {
-    return v1.GET(`/apps/${id}/relationships/builds`, { query })
+    return GET(api, `/apps/${id}/relationships/builds`, { query })
 }
 
 /**
@@ -115,10 +125,11 @@ export function getAllBuildIDsForApp(
  * @param query
  */
 export function listAllPrereleaseVersionsForApp(
+    api: API,
     id: string,
     query: ListAllPrereleaseVersionsForAppQuery
 ): Promise<PreReleaseVersionsResponse> {
-    return v1.GET(`/apps/${id}/preReleaseVersions`, { query })
+    return GET(api, `/apps/${id}/preReleaseVersions`, { query })
 }
 
 /**
@@ -127,10 +138,11 @@ export function listAllPrereleaseVersionsForApp(
  * @param query
  */
 export function getAllPrereleaseVersionIDsForApp(
+    api: API,
     id: string,
     query: GetAllPrereleaseVersionIDsForAppQuery
 ): Promise<AppPreReleaseVersionsLinkagesResponse> {
-    return v1.GET(`/apps/${id}/relationships/preReleaseVersions`, { query })
+    return GET(api, `/apps/${id}/relationships/preReleaseVersions`, { query })
 }
 
 /**
@@ -139,10 +151,11 @@ export function getAllPrereleaseVersionIDsForApp(
  * @param query
  */
 export function readBetaAppReviewDetailsResourceForApp(
+    api: API,
     id: string,
     query: ReadBetaAppReviewDetailsResourceForAppQuery
 ): Promise<BetaAppReviewDetailResponse> {
-    return v1.GET(`/apps/${id}/betaAppReviewDetail`, { query })
+    return GET(api, `/apps/${id}/betaAppReviewDetail`, { query })
 }
 
 /**
@@ -150,9 +163,10 @@ export function readBetaAppReviewDetailsResourceForApp(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBetaAppReviewDetailsResourceIDForApp(
+    api: API,
     id: string
 ): Promise<AppBetaAppReviewDetailLinkageResponse> {
-    return v1.GET(`/apps/${id}/relationships/betaAppReviewDetail`)
+    return GET(api, `/apps/${id}/relationships/betaAppReviewDetail`)
 }
 
 /**
@@ -161,10 +175,11 @@ export function getBetaAppReviewDetailsResourceIDForApp(
  * @param query
  */
 export function readBetaLicenseAgreementForApp(
+    api: API,
     id: string,
     query: ReadBetaLicenseAgreementForAppQuery
 ): Promise<BetaLicenseAgreementResponse> {
-    return v1.GET(`/apps/${id}/betaLicenseAgreement`, { query })
+    return GET(api, `/apps/${id}/betaLicenseAgreement`, { query })
 }
 
 /**
@@ -172,9 +187,10 @@ export function readBetaLicenseAgreementForApp(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBetaLicenseAgreementIDForApp(
+    api: API,
     id: string
 ): Promise<AppBetaLicenseAgreementLinkageResponse> {
-    return v1.GET(`/apps/${id}/relationships/betaLicenseAgreement`)
+    return GET(api, `/apps/${id}/relationships/betaLicenseAgreement`)
 }
 
 /**
@@ -183,10 +199,11 @@ export function getBetaLicenseAgreementIDForApp(
  * @param query
  */
 export function listAllBetaAppLocalizationsForApp(
+    api: API,
     id: string,
     query: ListAllBetaAppLocalizationsForAppQuery
 ): Promise<BetaAppLocalizationsResponse> {
-    return v1.GET(`/apps/${id}/betaAppLocalizations`, { query })
+    return GET(api, `/apps/${id}/betaAppLocalizations`, { query })
 }
 
 /**
@@ -195,10 +212,11 @@ export function listAllBetaAppLocalizationsForApp(
  * @param query
  */
 export function getAllBetaAppLocalizationIDsForApp(
+    api: API,
     id: string,
     query: GetAllBetaAppLocalizationIDsForAppQuery
 ): Promise<AppBetaAppLocalizationsLinkagesResponse> {
-    return v1.GET(`/apps/${id}/relationships/betaAppLocalizations`, { query })
+    return GET(api, `/apps/${id}/relationships/betaAppLocalizations`, { query })
 }
 
 interface ListAppsQuery {

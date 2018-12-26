@@ -1,16 +1,16 @@
+import { Data, Links, ResourceType } from '../../../data'
 import {
-    ResourceLinks,
     DocumentLinks,
     PagedDocumentLinks,
     PagingInformation,
+    ResourceLinks,
 } from '../../../paging'
-import { Data, Links, ResourceType } from '../../../data'
-import { Build } from '../builds/types'
+import { BetaAppLocalization } from '../beta-app-localizations/types'
 import { BetaAppReviewDetail } from '../beta-app-review-detail/types'
 import { BetaGroup } from '../beta-groups/types'
-import { PrereleaseVersion } from '../prerelease-versions/types'
-import { BetaAppLocalization } from '../beta-app-localizations/types'
 import { BetaLicenseAgreement } from '../beta-license-agreements/types'
+import { Build } from '../builds/types'
+import { PrereleaseVersion } from '../prerelease-versions/types'
 
 /**
  * The data structure that represents the resource.

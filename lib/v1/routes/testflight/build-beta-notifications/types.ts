@@ -1,5 +1,5 @@
-import { ResourceLinks, DocumentLinks } from '../../../paging'
-import { ResourceType, Data } from '../../../data'
+import { Data, ResourceType } from '../../../data'
+import { DocumentLinks, ResourceLinks } from '../../../paging'
 
 /**
  * The data structure that represents the resource.

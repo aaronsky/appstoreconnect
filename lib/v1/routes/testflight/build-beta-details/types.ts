@@ -1,10 +1,9 @@
 import { Data, Links, ResourceType } from '../../../data'
-
 import {
-    ResourceLinks,
     DocumentLinks,
-    PagingInformation,
     PagedDocumentLinks,
+    PagingInformation,
+    ResourceLinks,
 } from '../../../paging'
 import { Build } from '../builds/types'
 

@@ -1,27 +1,29 @@
-import v1, { AppType, BetaGroupType, BetaTesterType, BuildType } from '../../..'
+import { AppType, BetaGroupType, BetaTesterType, BuildType } from '../../..'
+import { API, DELETE, GET, PATCH, POST } from '../../../../api'
+import { AppResponse } from '../apps/types'
+import { BetaTestersResponse } from '../beta-testers/types'
+import { BuildsResponse } from '../builds/types'
 import {
-    BetaGroupCreateRequest,
-    BetaGroupResponse,
-    BetaGroupUpdateRequest,
-    BetaGroupsResponse,
     BetaGroupAppLinkageResponse,
     BetaGroupBetaTestersLinkagesRequest,
+    BetaGroupBetaTestersLinkagesResponse,
     BetaGroupBuildsLinkagesRequest,
     BetaGroupBuildsLinkagesResponse,
-    BetaGroupBetaTestersLinkagesResponse,
+    BetaGroupCreateRequest,
+    BetaGroupResponse,
+    BetaGroupsResponse,
+    BetaGroupUpdateRequest,
 } from './types'
-import { AppResponse } from '../apps/types'
-import { BuildsResponse } from '../builds/types'
-import { BetaTestersResponse } from '../beta-testers/types'
 
 /**
  * Create a beta group associated with an app, optionally enabling TestFlight public links.
  * @param body
  */
 export function createBetaGroup(
+    api: API,
     body: BetaGroupCreateRequest
 ): Promise<BetaGroupResponse> {
-    return v1.POST(`/betaGroups`, { body })
+    return POST(api, `/betaGroups`, { body })
 }
 
 /**
@@ -30,18 +32,19 @@ export function createBetaGroup(
  * @param body
  */
 export function modifyBetaGroup(
+    api: API,
     id: string,
     body: BetaGroupUpdateRequest
 ): Promise<BetaGroupResponse> {
-    return v1.PATCH(`/betaGroups/${id}`, { body })
+    return PATCH(api, `/betaGroups/${id}`, { body })
 }
 
 /**
  * Delete a beta group and remove beta tester access to associated builds.
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
-export function deleteBetaGroup(id: string): Promise<void> {
-    return v1.DELETE(`/betaGroups/${id}`)
+export function deleteBetaGroup(api: API, id: string): Promise<void> {
+    return DELETE(api, `/betaGroups/${id}`)
 }
 
 /**
@@ -49,9 +52,10 @@ export function deleteBetaGroup(id: string): Promise<void> {
  * @param query
  */
 export function listBetaGroups(
+    api: API,
     query: ListBetaGroupsQuery
 ): Promise<BetaGroupsResponse> {
-    return v1.GET(`/betaGroups`, { query })
+    return GET(api, `/betaGroups`, { query })
 }
 
 /**
@@ -60,10 +64,11 @@ export function listBetaGroups(
  * @param query
  */
 export function readBetaGroupInformation(
+    api: API,
     id: string,
     query: ReadBetaGroupInformationQuery
 ): Promise<BetaGroupResponse> {
-    return v1.GET(`/betaGroups/${id}`, { query })
+    return GET(api, `/betaGroups/${id}`, { query })
 }
 
 /**
@@ -72,10 +77,11 @@ export function readBetaGroupInformation(
  * @param query
  */
 export function readAppInformationForBetaGroup(
+    api: API,
     id: string,
     query: ReadAppInformationForBetaGroupQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/betaGroups/${id}/app`, { query })
+    return GET(api, `/betaGroups/${id}/app`, { query })
 }
 
 /**
@@ -83,9 +89,10 @@ export function readAppInformationForBetaGroup(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getAppResourceIDForBetaGroup(
+    api: API,
     id: string
 ): Promise<BetaGroupAppLinkageResponse> {
-    return v1.GET(`/betaGroups/${id}/relationships/app`)
+    return GET(api, `/betaGroups/${id}/relationships/app`)
 }
 
 /**
@@ -94,10 +101,11 @@ export function getAppResourceIDForBetaGroup(
  * @param body
  */
 export function addBetaTestersToBetaGroup(
+    api: API,
     id: string,
     body: BetaGroupBetaTestersLinkagesRequest
 ): Promise<void> {
-    return v1.POST(`/betaGroups/${id}/relationships/betaTesters`, { body })
+    return POST(api, `/betaGroups/${id}/relationships/betaTesters`, { body })
 }
 
 /**
@@ -106,10 +114,11 @@ export function addBetaTestersToBetaGroup(
  * @param body
  */
 export function removeBetaTestersFromBetaGroup(
+    api: API,
     id: string,
     body: BetaGroupBetaTestersLinkagesRequest
 ): Promise<void> {
-    return v1.DELETE(`/betaGroups/${id}/relationships/betaTesters`, { body })
+    return DELETE(api, `/betaGroups/${id}/relationships/betaTesters`, { body })
 }
 
 /**
@@ -118,10 +127,11 @@ export function removeBetaTestersFromBetaGroup(
  * @param body
  */
 export function addBuildsToBetaGroup(
+    api: API,
     id: string,
     body: BetaGroupBuildsLinkagesRequest
 ): Promise<void> {
-    return v1.POST(`/betaGroups/${id}/relationships/builds`, { body })
+    return POST(api, `/betaGroups/${id}/relationships/builds`, { body })
 }
 
 /**
@@ -130,10 +140,11 @@ export function addBuildsToBetaGroup(
  * @param body
  */
 export function removeBuildsFromBetaGroup(
+    api: API,
     id: string,
     body: BetaGroupBuildsLinkagesRequest
 ): Promise<void> {
-    return v1.DELETE(`/betaGroups/${id}/relationships/builds`, { body })
+    return DELETE(api, `/betaGroups/${id}/relationships/builds`, { body })
 }
 
 /**
@@ -142,10 +153,11 @@ export function removeBuildsFromBetaGroup(
  * @param query
  */
 export function listAllBuildsForBetaGroup(
+    api: API,
     id: string,
     query: ListAllBuildsForBetaGroupQuery
 ): Promise<BuildsResponse> {
-    return v1.GET(`/betaGroups/${id}/builds`, { query })
+    return GET(api, `/betaGroups/${id}/builds`, { query })
 }
 
 /**
@@ -154,10 +166,11 @@ export function listAllBuildsForBetaGroup(
  * @param query
  */
 export function getAllBuildIDsForBetaGroup(
+    api: API,
     id: string,
     query: GetAllBuildIDsForBetaGroupQuery
 ): Promise<BetaGroupBuildsLinkagesResponse> {
-    return v1.GET(`/betaGroups/${id}/relationships/builds`, { query })
+    return GET(api, `/betaGroups/${id}/relationships/builds`, { query })
 }
 
 /**
@@ -166,10 +179,11 @@ export function getAllBuildIDsForBetaGroup(
  * @param query
  */
 export function listAllBetaTestersForBetaGroup(
+    api: API,
     id: string,
     query: ListAllBetaTestersForBetaGroupQuery
 ): Promise<BetaTestersResponse> {
-    return v1.GET(`/betaGroups/${id}/betaTesters`, { query })
+    return GET(api, `/betaGroups/${id}/betaTesters`, { query })
 }
 
 /**
@@ -178,10 +192,11 @@ export function listAllBetaTestersForBetaGroup(
  * @param query
  */
 export function getAllBetaTesterIDsForBetaGroup(
+    api: API,
     id: string,
     query: GetAllBetaTesterIDsForBetaGroupQuery
 ): Promise<BetaGroupBetaTestersLinkagesResponse> {
-    return v1.GET(`/betaGroups/${id}/relationships/betaTesters`, { query })
+    return GET(api, `/betaGroups/${id}/relationships/betaTesters`, { query })
 }
 
 interface ListBetaGroupsQuery {

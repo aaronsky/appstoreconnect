@@ -1,21 +1,23 @@
+import { AppType, BetaLicenseAgreementType } from '../../..'
+import { API, GET, PATCH } from '../../../../api'
+import { ResourceType } from '../../../data'
+import { AppResponse } from '../apps/types'
 import {
-    BetaLicenseAgreementUpdateRequest,
+    BetaLicenseAgreementAppLinkageResponse,
     BetaLicenseAgreementResponse,
     BetaLicenseAgreementsResponse,
-    BetaLicenseAgreementAppLinkageResponse,
+    BetaLicenseAgreementUpdateRequest,
 } from './types'
-import v1, { AppType, BetaLicenseAgreementType } from '../../..'
-import { AppResponse } from '../apps/types'
-import { ResourceType } from '../../../data'
 
 /**
  * Find and list beta license agreements for all apps.
  * @param query
  */
 export function listBetaLicenseAgreements(
+    api: API,
     query: ListBetaLicenseAgreementsQuery
 ): Promise<BetaLicenseAgreementsResponse> {
-    return v1.GET(`/betaLicenseAgreements`, { query })
+    return GET(api, `/betaLicenseAgreements`, { query })
 }
 
 /**
@@ -24,10 +26,11 @@ export function listBetaLicenseAgreements(
  * @param query
  */
 export function readBetaLicenseAgreementInformation(
+    api: API,
     id: string,
     query: ReadBetaLicenseAgreementInformationQuery
 ): Promise<BetaLicenseAgreementResponse> {
-    return v1.GET(`/betaLicenseAgreements/${id}`, { query })
+    return GET(api, `/betaLicenseAgreements/${id}`, { query })
 }
 
 /**
@@ -36,10 +39,11 @@ export function readBetaLicenseAgreementInformation(
  * @param query
  */
 export function readAppInformationForBetaLicenseAgreement(
+    api: API,
     id: string,
     query: ReadAppInformationForBetaLicenseAgreementQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/betaLicenseAgreements/${id}/app`, { query })
+    return GET(api, `/betaLicenseAgreements/${id}/app`, { query })
 }
 
 /**
@@ -47,9 +51,10 @@ export function readAppInformationForBetaLicenseAgreement(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getAppResourceIDForBetaLicenseAgreement(
+    api: API,
     id: string
 ): Promise<BetaLicenseAgreementAppLinkageResponse> {
-    return v1.GET(`/betaLicenseAgreements/${id}/relationships/app`)
+    return GET(api, `/betaLicenseAgreements/${id}/relationships/app`)
 }
 
 /**
@@ -58,10 +63,11 @@ export function getAppResourceIDForBetaLicenseAgreement(
  * @param body
  */
 export function modifyBetaLicenseAgreement(
+    api: API,
     id: string,
     body: BetaLicenseAgreementUpdateRequest
 ): Promise<BetaLicenseAgreementResponse> {
-    return v1.PATCH(`/betaLicenseAgreements/${id}`, { body })
+    return PATCH(api, `/betaLicenseAgreements/${id}`, { body })
 }
 
 interface ListBetaLicenseAgreementsQuery {

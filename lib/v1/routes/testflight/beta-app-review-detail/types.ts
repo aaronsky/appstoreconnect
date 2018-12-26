@@ -1,9 +1,9 @@
-import { ResourceType, Links, Data } from '../../../data'
+import { Data, Links, ResourceType } from '../../../data'
 import {
-    ResourceLinks,
     DocumentLinks,
-    PagingInformation,
     PagedDocumentLinks,
+    PagingInformation,
+    ResourceLinks,
 } from '../../../paging'
 import { App } from '../apps/types'
 

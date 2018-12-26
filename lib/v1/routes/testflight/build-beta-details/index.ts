@@ -1,21 +1,23 @@
-import v1, { BuildType, BuildBetaDetailType } from '../../..'
-import {
-    BuildBetaDetailsResponse,
-    BuildBetaDetailResponse,
-    BuildBetaDetailBuildLinkageResponse,
-    BuildBetaDetailUpdateRequest,
-} from './types'
+import { BuildBetaDetailType, BuildType } from '../../..'
+import { API, GET, PATCH } from '../../../../api'
 import { ResourceType } from '../../../data'
 import { BuildResponse } from '../builds/types'
+import {
+    BuildBetaDetailBuildLinkageResponse,
+    BuildBetaDetailResponse,
+    BuildBetaDetailsResponse,
+    BuildBetaDetailUpdateRequest,
+} from './types'
 
 /**
  * Find and list build beta details for all builds.
  * @param query
  */
 export function listBuildBetaDetails(
+    api: API,
     query: ListBuildBetaDetailsQuery
 ): Promise<BuildBetaDetailsResponse> {
-    return v1.GET(`/buildBetaDetails`, { query })
+    return GET(api, `/buildBetaDetails`, { query })
 }
 
 /**
@@ -24,10 +26,11 @@ export function listBuildBetaDetails(
  * @param query
  */
 export function readBuildBetaDetailInformation(
+    api: API,
     id: string,
     query: ReadBuildBetaDetailInformationQuery
 ): Promise<BuildBetaDetailResponse> {
-    return v1.GET(`/buildBetaDetails/${id}`, { query })
+    return GET(api, `/buildBetaDetails/${id}`, { query })
 }
 
 /**
@@ -36,10 +39,11 @@ export function readBuildBetaDetailInformation(
  * @param query
  */
 export function readBuildInformationForBuildBetaDetail(
+    api: API,
     id: string,
     query: ReadBuildInformationForBuildBetaDetailQuery
 ): Promise<BuildResponse> {
-    return v1.GET(`/buildBetaDetails/${id}/build`, { query })
+    return GET(api, `/buildBetaDetails/${id}/build`, { query })
 }
 
 /**
@@ -47,9 +51,10 @@ export function readBuildInformationForBuildBetaDetail(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBuildIDForBuildBetaDetail(
+    api: API,
     id: string
 ): Promise<BuildBetaDetailBuildLinkageResponse> {
-    return v1.GET(`/buildBetaDetails/${id}/relationships/build`)
+    return GET(api, `/buildBetaDetails/${id}/relationships/build`)
 }
 
 /**
@@ -58,10 +63,11 @@ export function getBuildIDForBuildBetaDetail(
  * @param body
  */
 export function modifyBuildBetaDetail(
+    api: API,
     id: string,
     body: BuildBetaDetailUpdateRequest
 ): Promise<BuildBetaDetailResponse> {
-    return v1.PATCH(`/buildBetaDetails/${id}`, { body })
+    return PATCH(api, `/buildBetaDetails/${id}`, { body })
 }
 
 interface ListBuildBetaDetailsQuery {

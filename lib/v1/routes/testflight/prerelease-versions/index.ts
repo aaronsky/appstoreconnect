@@ -1,11 +1,12 @@
+import { AppType, BuildType, PreReleaseVersionType } from '../../..'
+import { API, GET } from '../../../../api'
 import { AppResponse } from '../apps/types'
 import { BuildsResponse, ProcessingState } from '../builds/types'
-import v1, { BuildType, AppType, PreReleaseVersionType } from '../../..'
 import {
-    PreReleaseVersionsResponse,
-    PrereleaseVersionResponse,
     PrereleaseVersionAppLinkageResponse,
     PrereleaseVersionBuildsLinkagesResponse,
+    PrereleaseVersionResponse,
+    PreReleaseVersionsResponse,
 } from './types'
 
 /**
@@ -13,9 +14,10 @@ import {
  * @param query
  */
 export function listPrereleaseVersions(
+    api: API,
     query: ListPrereleaseVersionsQuery
 ): Promise<PreReleaseVersionsResponse> {
-    return v1.GET(`/preReleaseVersions`, { query })
+    return GET(api, `/preReleaseVersions`, { query })
 }
 
 /**
@@ -24,10 +26,11 @@ export function listPrereleaseVersions(
  * @param query
  */
 export function readPrereleaseVersionInformation(
+    api: API,
     id: string,
     query: ReadPrereleaseVersionInformationQuery
 ): Promise<PrereleaseVersionResponse> {
-    return v1.GET(`/preReleaseVersions/${id}`, { query })
+    return GET(api, `/preReleaseVersions/${id}`, { query })
 }
 
 /**
@@ -36,10 +39,11 @@ export function readPrereleaseVersionInformation(
  * @param query
  */
 export function readAppInformationForPrereleaseVersion(
+    api: API,
     id: string,
     query: ReadAppInformationForPrereleaseVersionQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/preReleaseVersions/${id}/app`, { query })
+    return GET(api, `/preReleaseVersions/${id}/app`, { query })
 }
 
 /**
@@ -47,9 +51,10 @@ export function readAppInformationForPrereleaseVersion(
  * @param id
  */
 export function getAppResourceIDForPrereleaseVersion(
+    api: API,
     id: string
 ): Promise<PrereleaseVersionAppLinkageResponse> {
-    return v1.GET(`/preReleaseVersions/${id}/relationships/app`)
+    return GET(api, `/preReleaseVersions/${id}/relationships/app`)
 }
 
 /**
@@ -58,10 +63,11 @@ export function getAppResourceIDForPrereleaseVersion(
  * @param query
  */
 export function listAllBuildsForPrereleaseVersion(
+    api: API,
     id: string,
     query: ListAllBuildsForPrereleaseVersionQuery
 ): Promise<BuildsResponse> {
-    return v1.GET(`/preReleaseVersions/${id}/builds`, { query })
+    return GET(api, `/preReleaseVersions/${id}/builds`, { query })
 }
 
 /**
@@ -70,10 +76,11 @@ export function listAllBuildsForPrereleaseVersion(
  * @param query
  */
 export function getAllBuildIDsForPrereleaseVersion(
+    api: API,
     id: string,
     query: GetAllBuildIDsForPrereleaseVersionQuery
 ): Promise<PrereleaseVersionBuildsLinkagesResponse> {
-    return v1.GET(`/preReleaseVersions/${id}/relationships/builds`, { query })
+    return GET(api, `/preReleaseVersions/${id}/relationships/builds`, { query })
 }
 
 interface ListPrereleaseVersionsQuery {

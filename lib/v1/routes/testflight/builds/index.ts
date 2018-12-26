@@ -1,92 +1,101 @@
 import {
-    BuildsResponse,
-    BuildResponse,
-    BuildAppLinkageResponse,
-    BuildPreReleaseVersionLinkageResponse,
-    ProcessingState,
-    BuildUpdateRequest,
-    BuildAppEncryptionDeclarationLinkageRequest,
-    BuildBetaGroupsLinkagesRequest,
-    BuildIndividualTestersLinkagesRequest,
-    BuildIndividualTestersLinkagesResponse,
-    BuildAppEncryptionDeclarationLinkageResponse,
-    BuildBetaBuildLocalizationsLinkagesResponse,
-    BuildBuildBetaDetailLinkageResponse,
-} from './types'
-import v1, {
-    PreReleaseVersionType,
+    AppEncryptionDeclarationType,
     AppType,
-    BuildBetaDetailType,
     BetaAppReviewSubmissionType,
     BetaBuildLocalizationType,
-    BuildType,
-    AppEncryptionDeclarationType,
     BetaTesterType,
+    BuildBetaDetailType,
+    BuildType,
+    PreReleaseVersionType,
 } from '../../..'
+import { API, DELETE, GET, PATCH, POST } from '../../../../api'
+import { AppEncryptionDeclarationResponse } from '../app-encryption-declarations/types'
 import { AppResponse } from '../apps/types'
 import {
     BetaAppReviewSubmissionResponse,
     BuildBetaAppReviewSubmissionLinkageResponse,
 } from '../beta-app-review-submissions/types'
-import { BuildBetaDetailResponse } from '../build-beta-details/types'
 import { BetaBuildLocalizationsResponse } from '../beta-build-localizations/types'
-import { PrereleaseVersionResponse } from '../prerelease-versions/types'
 import { BetaTestersResponse } from '../beta-testers/types'
-import { AppEncryptionDeclarationResponse } from '../app-encryption-declarations/types'
+import { BuildBetaDetailResponse } from '../build-beta-details/types'
+import { PrereleaseVersionResponse } from '../prerelease-versions/types'
+import {
+    BuildAppEncryptionDeclarationLinkageRequest,
+    BuildAppEncryptionDeclarationLinkageResponse,
+    BuildAppLinkageResponse,
+    BuildBetaBuildLocalizationsLinkagesResponse,
+    BuildBetaGroupsLinkagesRequest,
+    BuildBuildBetaDetailLinkageResponse,
+    BuildIndividualTestersLinkagesRequest,
+    BuildIndividualTestersLinkagesResponse,
+    BuildPreReleaseVersionLinkageResponse,
+    BuildResponse,
+    BuildsResponse,
+    BuildUpdateRequest,
+    ProcessingState,
+} from './types'
 
 /**
  * Find and list builds for all apps in App Store Connect.
  */
-export function listBuilds(query: ListBuildsQuery): Promise<BuildsResponse> {
-    return v1.GET(`/builds`, { query })
+export function listBuilds(
+    api: API,
+    query: ListBuildsQuery
+): Promise<BuildsResponse> {
+    return GET(api, `/builds`, { query })
 }
 
 /**
  * Get information about a specific build.
  */
 export function readBuildInformation(
+    api: API,
     id: string,
     query: ReadBuildInformationQuery
 ): Promise<BuildResponse> {
-    return v1.GET(`/builds/${id}`, { query })
+    return GET(api, `/builds/${id}`, { query })
 }
 
 /**
  * Get the app information for a specific build.
  */
 export function readAppInformationForBuild(
+    api: API,
     id: string,
     query: ReadAppInformationQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/builds/${id}/app`, { query })
+    return GET(api, `/builds/${id}/app`, { query })
 }
 
 /**
  * Get the app resource ID associated with a specific build.
  */
 export function getAppResourceIDForBuild(
+    api: API,
     id: string
 ): Promise<BuildAppLinkageResponse> {
-    return v1.GET(`/builds/${id}/relationships/app`)
+    return GET(api, `/builds/${id}/relationships/app`)
 }
 
 /**
  * Get the prerelease version for a specific build.
  */
 export function readPrereleaseVersionForBuild(
+    api: API,
     id: string,
     query: ReadPrereleaseVersionForBuildQuery
 ): Promise<PrereleaseVersionResponse> {
-    return v1.GET(`/builds/${id}/preReleaseVersion`, { query })
+    return GET(api, `/builds/${id}/preReleaseVersion`, { query })
 }
 
 /**
  * Get a list of resource IDs of prerelease versions associated with a build.
  */
 export function getAllResourceIDsForPrereleaseVersionsForBuild(
+    api: API,
     id: string
 ): Promise<BuildPreReleaseVersionLinkageResponse> {
-    return v1.GET(`/builds/${id}/relationships/preReleaseVersion`)
+    return GET(api, `/builds/${id}/relationships/preReleaseVersion`)
 }
 
 /**
@@ -95,10 +104,11 @@ export function getAllResourceIDsForPrereleaseVersionsForBuild(
  * @param body
  */
 export function modifyBuild(
+    api: API,
     id: string,
     body: BuildUpdateRequest
 ): Promise<BuildResponse> {
-    return v1.PATCH(`/builds/${id}`, { body })
+    return PATCH(api, `/builds/${id}`, { body })
 }
 
 /**
@@ -107,10 +117,11 @@ export function modifyBuild(
  * @param body
  */
 export function assignAppEncryptionDeclarationForBuild(
+    api: API,
     id: string,
     body: BuildAppEncryptionDeclarationLinkageRequest
 ): Promise<void> {
-    return v1.PATCH(`/builds/${id}/relationships/appEncryptionDeclaration`, {
+    return PATCH(api, `/builds/${id}/relationships/appEncryptionDeclaration`, {
         body,
     })
 }
@@ -121,10 +132,11 @@ export function assignAppEncryptionDeclarationForBuild(
  * @param body
  */
 export function addAccessForBetaGroupsForBuild(
+    api: API,
     id: string,
     body: BuildBetaGroupsLinkagesRequest
 ): Promise<void> {
-    return v1.POST(`/builds/${id}/relationships/betaGroups`, { body })
+    return POST(api, `/builds/${id}/relationships/betaGroups`, { body })
 }
 
 /**
@@ -133,10 +145,11 @@ export function addAccessForBetaGroupsForBuild(
  * @param body
  */
 export function removeAccessForBetaGroupsForBuild(
+    api: API,
     id: string,
     body: BuildBetaGroupsLinkagesRequest
 ): Promise<void> {
-    return v1.DELETE(`/builds/${id}/relationships/betaGroups`, { body })
+    return DELETE(api, `/builds/${id}/relationships/betaGroups`, { body })
 }
 
 /**
@@ -145,10 +158,11 @@ export function removeAccessForBetaGroupsForBuild(
  * @param body
  */
 export function assignIndividualTestersForBuild(
+    api: API,
     id: string,
     body: BuildIndividualTestersLinkagesRequest
 ): Promise<void> {
-    return v1.POST(`/builds/${id}/relationships/individualTesters`, { body })
+    return POST(api, `/builds/${id}/relationships/individualTesters`, { body })
 }
 
 /**
@@ -157,10 +171,13 @@ export function assignIndividualTestersForBuild(
  * @param body
  */
 export function removeIndividualTestersFromBuild(
+    api: API,
     id: string,
     body: BuildIndividualTestersLinkagesRequest
 ): Promise<void> {
-    return v1.DELETE(`/builds/${id}/relationships/individualTesters`, { body })
+    return DELETE(api, `/builds/${id}/relationships/individualTesters`, {
+        body,
+    })
 }
 
 /**
@@ -169,10 +186,11 @@ export function removeIndividualTestersFromBuild(
  * @param query
  */
 export function listAllIndividualTestersForBuild(
+    api: API,
     id: string,
     query: ListAllIndividualTestersForBuildQuery
 ): Promise<BetaTestersResponse> {
-    return v1.GET(`/builds/${id}/individualTesters`, { query })
+    return GET(api, `/builds/${id}/individualTesters`, { query })
 }
 
 /**
@@ -181,10 +199,11 @@ export function listAllIndividualTestersForBuild(
  * @param query
  */
 export function getAllResourceIDsForIndividualTestersForBuild(
+    api: API,
     id: string,
     query: GetAllResourceIDsForIndividualTestersForBuildQuery
 ): Promise<BuildIndividualTestersLinkagesResponse> {
-    return v1.GET(`/builds/${id}/relationships/individualTesters`, { query })
+    return GET(api, `/builds/${id}/relationships/individualTesters`, { query })
 }
 
 /**
@@ -193,10 +212,11 @@ export function getAllResourceIDsForIndividualTestersForBuild(
  * @param query
  */
 export function readBetaAppReviewSubmissionForBuild(
+    api: API,
     id: string,
     query: ReadBetaAppReviewSubmissionForBuildQuery
 ): Promise<BetaAppReviewSubmissionResponse> {
-    return v1.GET(`/builds/${id}/betaAppReviewSubmission`, { query })
+    return GET(api, `/builds/${id}/betaAppReviewSubmission`, { query })
 }
 
 /**
@@ -204,9 +224,10 @@ export function readBetaAppReviewSubmissionForBuild(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBetaAppReviewSubmissionIDForBuild(
+    api: API,
     id: string
 ): Promise<BuildBetaAppReviewSubmissionLinkageResponse> {
-    return v1.GET(`/builds/${id}/relationships/betaAppReviewSubmission`)
+    return GET(api, `/builds/${id}/relationships/betaAppReviewSubmission`)
 }
 
 /**
@@ -215,10 +236,11 @@ export function getBetaAppReviewSubmissionIDForBuild(
  * @param query
  */
 export function readBuildBetaDetailsInformationForBuild(
+    api: API,
     id: string,
     query: ReadBuildBetaDetailsInformationForBuildQuery
 ): Promise<BuildBetaDetailResponse> {
-    return v1.GET(`/builds/${id}/buildBetaDetail`, { query })
+    return GET(api, `/builds/${id}/buildBetaDetail`, { query })
 }
 
 /**
@@ -226,9 +248,10 @@ export function readBuildBetaDetailsInformationForBuild(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBuildBetaDetailsResourceIDForBuild(
+    api: API,
     id: string
 ): Promise<BuildBuildBetaDetailLinkageResponse> {
-    return v1.GET(`/builds/${id}/relationships/buildBetaDetail`)
+    return GET(api, `/builds/${id}/relationships/buildBetaDetail`)
 }
 
 /**
@@ -237,10 +260,11 @@ export function getBuildBetaDetailsResourceIDForBuild(
  * @param query
  */
 export function readAppEncryptionDeclarationForBuild(
+    api: API,
     id: string,
     query: ReadAppEncryptionDeclarationForBuildQuery
 ): Promise<AppEncryptionDeclarationResponse> {
-    return v1.GET(`/builds/${id}/appEncryptionDeclaration`, { query })
+    return GET(api, `/builds/${id}/appEncryptionDeclaration`, { query })
 }
 
 /**
@@ -248,9 +272,10 @@ export function readAppEncryptionDeclarationForBuild(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getAppEncryptionDeclarationIDForBuild(
+    api: API,
     id: string
 ): Promise<BuildAppEncryptionDeclarationLinkageResponse> {
-    return v1.GET(`/builds/${id}/relationships/appEncryptionDeclaration`)
+    return GET(api, `/builds/${id}/relationships/appEncryptionDeclaration`)
 }
 
 /**
@@ -259,10 +284,11 @@ export function getAppEncryptionDeclarationIDForBuild(
  * @param query
  */
 export function listAllBetaBuildLocalizationsForBuild(
+    api: API,
     id: string,
     query: ListAllBetaBuildLocalizationsForBuildQuery
 ): Promise<BetaBuildLocalizationsResponse> {
-    return v1.GET(`/builds/${id}/betaBuildLocalizations`, { query })
+    return GET(api, `/builds/${id}/betaBuildLocalizations`, { query })
 }
 
 /**
@@ -271,10 +297,11 @@ export function listAllBetaBuildLocalizationsForBuild(
  * @param query
  */
 export function getAllBetaBuildLocalizationIDsForBuild(
+    api: API,
     id: string,
     query: GetAllBetaBuildLocalizationIDsForBuildQuery
 ): Promise<BuildBetaBuildLocalizationsLinkagesResponse> {
-    return v1.GET(`/builds/${id}/relationships/betaBuildLocalizations`, {
+    return GET(api, `/builds/${id}/relationships/betaBuildLocalizations`, {
         query,
     })
 }

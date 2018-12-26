@@ -1,21 +1,23 @@
-import v1, { BetaAppReviewDetailType, AppType } from '../../..'
+import { AppType, BetaAppReviewDetailType } from '../../..'
+import { API, GET, PATCH } from '../../../../api'
 import { ResourceType } from '../../../data'
+import { AppResponse } from '../apps/types'
 import {
-    BetaAppReviewDetailsResponse,
-    BetaAppReviewDetailResponse,
     BetaAppReviewDetailAppLinkageResponse,
+    BetaAppReviewDetailResponse,
+    BetaAppReviewDetailsResponse,
     BetaAppReviewDetailUpdateRequest,
 } from './types'
-import { AppResponse } from '../apps/types'
 
 /**
  * Find and list beta app review details for all apps.
  * @param query
  */
 export function listBetaAppReviewDetails(
+    api: API,
     query: ListBetaAppReviewDetailsQuery
 ): Promise<BetaAppReviewDetailsResponse> {
-    return v1.GET('/betaAppReviewDetails', { query })
+    return GET(api, '/betaAppReviewDetails', { query })
 }
 
 /**
@@ -24,10 +26,11 @@ export function listBetaAppReviewDetails(
  * @param query
  */
 export function readBetaAppReviewDetailInformation(
+    api: API,
     id: string,
     query: ReadBetaAppReviewDetailInformationQuery
 ): Promise<BetaAppReviewDetailResponse> {
-    return v1.GET(`/betaAppReviewDetails/${id}`, { query })
+    return GET(api, `/betaAppReviewDetails/${id}`, { query })
 }
 
 /**
@@ -36,10 +39,11 @@ export function readBetaAppReviewDetailInformation(
  * @param query
  */
 export function readAppInformationForBetaAppReviewDetail(
+    api: API,
     id: string,
     query: ReadAppInformationForBetaAppReviewDetailQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/betaAppReviewDetails/${id}/app`, { query })
+    return GET(api, `/betaAppReviewDetails/${id}/app`, { query })
 }
 
 /**
@@ -47,9 +51,10 @@ export function readAppInformationForBetaAppReviewDetail(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getAppResourceIDForBetaAppReviewDetailsResource(
+    api: API,
     id: string
 ): Promise<BetaAppReviewDetailAppLinkageResponse> {
-    return v1.GET(`/betaAppReviewDetails/${id}/relationships/app`)
+    return GET(api, `/betaAppReviewDetails/${id}/relationships/app`)
 }
 
 /**
@@ -58,10 +63,11 @@ export function getAppResourceIDForBetaAppReviewDetailsResource(
  * @param body
  */
 export function modifyBetaAppReviewDetail(
+    api: API,
     id: string,
     body: BetaAppReviewDetailUpdateRequest
 ): Promise<BetaAppReviewDetailResponse> {
-    return v1.PATCH(`/betaAppReviewDetails/${id}`, { body })
+    return PATCH(api, `/betaAppReviewDetails/${id}`, { body })
 }
 
 interface ListBetaAppReviewDetailsQuery {

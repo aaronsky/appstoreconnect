@@ -1,22 +1,23 @@
+import { BetaAppReviewSubmissionType, BuildType } from '../../..'
+import { API, GET, POST } from '../../../../api'
+import { ResourceType } from '../../../data'
+import { BuildResponse } from '../builds/types'
 import {
+    BetaAppReviewSubmissionBuildLinkageResponse,
     BetaAppReviewSubmissionCreateRequest,
     BetaAppReviewSubmissionResponse,
     BetaAppReviewSubmissionsResponse,
-    BetaAppReviewSubmissionBuildLinkageResponse,
 } from './types'
-
-import v1, { BuildType, BetaAppReviewSubmissionType } from '../../..'
-import { ResourceType } from '../../../data'
-import { BuildResponse } from '../builds/types'
 
 /**
  * Submit an app for beta app review to allow external testing.
  * @param body
  */
 export function submitAppForBetaReview(
+    api: API,
     body: BetaAppReviewSubmissionCreateRequest
 ): Promise<BetaAppReviewSubmissionResponse> {
-    return v1.POST(`/betaAppReviewSubmissions`, { body })
+    return POST(api, `/betaAppReviewSubmissions`, { body })
 }
 
 /**
@@ -24,9 +25,10 @@ export function submitAppForBetaReview(
  * @param query
  */
 export function listBetaAppReviewSubmissions(
+    api: API,
     query: ListBetaAppReviewSubmissionsQuery
 ): Promise<BetaAppReviewSubmissionsResponse> {
-    return v1.GET(`/betaAppReviewSubmissions`, { query })
+    return GET(api, `/betaAppReviewSubmissions`, { query })
 }
 
 /**
@@ -35,10 +37,11 @@ export function listBetaAppReviewSubmissions(
  * @param query
  */
 export function readBetaAppReviewSubmissionInformation(
+    api: API,
     id: string,
     query: ReadBetaAppReviewSubmissionInformationQuery
 ): Promise<BetaAppReviewSubmissionResponse> {
-    return v1.GET(`/betaAppReviewSubmissions/${id}`, { query })
+    return GET(api, `/betaAppReviewSubmissions/${id}`, { query })
 }
 
 /**
@@ -47,10 +50,11 @@ export function readBetaAppReviewSubmissionInformation(
  * @param query
  */
 export function readBuildInformationForBetaAppReviewSubmission(
+    api: API,
     id: string,
     query: ReadBuildInformationForBetaAppReviewSubmissionQuery
 ): Promise<BuildResponse> {
-    return v1.GET(`/betaAppReviewSubmissions/${id}/build`, { query })
+    return GET(api, `/betaAppReviewSubmissions/${id}/build`, { query })
 }
 
 /**
@@ -58,9 +62,10 @@ export function readBuildInformationForBetaAppReviewSubmission(
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
 export function getBuildIDForBetaAppReviewSubmission(
+    api: API,
     id: string
 ): Promise<BetaAppReviewSubmissionBuildLinkageResponse> {
-    return v1.GET(`/betaAppReviewSubmissions/${id}/relationships/build`)
+    return GET(api, `/betaAppReviewSubmissions/${id}/relationships/build`)
 }
 
 interface ListBetaAppReviewSubmissionsQuery {

@@ -1,21 +1,22 @@
-import v1 from '../../'
+import { AppType, UserType } from '../..'
+import { API, DELETE, GET, POST } from '../../../api'
+import { AppsResponse } from '../testflight/apps/types'
 import {
-    UserInvitationsResponse,
-    UserInvitationResponse,
     UserInvitationCreateRequest,
+    UserInvitationResponse,
+    UserInvitationsResponse,
     UserInvitationVisibleAppsLinkagesResponse,
 } from './types'
-import { AppType, UserType } from '../..'
-import { AppsResponse } from '../testflight/apps/types'
 
 /**
  * Get a list of pending invitations to join your team.
  * @param query
  */
 export function listInvitedUsers(
+    api: API,
     query: ListInvitedUsersQuery
 ): Promise<UserInvitationsResponse> {
-    return v1.GET('/userInvitations', { query })
+    return GET(api, '/userInvitations', { query })
 }
 
 /**
@@ -24,10 +25,11 @@ export function listInvitedUsers(
  * @param query
  */
 export function readUserInvitationInformation(
+    api: API,
     id: string,
     query: ReadUserInvitationInformationQuery
 ): Promise<UserInvitationResponse> {
-    return v1.GET(`/userInvitations/${id}`, { query })
+    return GET(api, `/userInvitations/${id}`, { query })
 }
 
 /**
@@ -36,18 +38,19 @@ export function readUserInvitationInformation(
  * @param body
  */
 export function inviteUser(
+    api: API,
     id: string,
     body: UserInvitationCreateRequest
 ): Promise<UserInvitationResponse> {
-    return v1.POST(`/userInvitations/${id}`, { body })
+    return POST(api, `/userInvitations/${id}`, { body })
 }
 
 /**
  * Cancel a pending invitation for a user to join your team.
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
-export function cancelUserInvitation(id: string): Promise<void> {
-    return v1.DELETE(`/userInvitations/${id}`)
+export function cancelUserInvitation(api: API, id: string): Promise<void> {
+    return DELETE(api, `/userInvitations/${id}`)
 }
 
 /**
@@ -56,10 +59,11 @@ export function cancelUserInvitation(id: string): Promise<void> {
  * @param query
  */
 export function listAllAppsVisibleToInvitedUser(
+    api: API,
     id: string,
     query: ListAllAppsVisibleToInvitedUserQuery
 ): Promise<AppsResponse> {
-    return v1.GET(`/userInvitations/${id}/visibleApps`, { query })
+    return GET(api, `/userInvitations/${id}/visibleApps`, { query })
 }
 
 /**
@@ -68,10 +72,11 @@ export function listAllAppsVisibleToInvitedUser(
  * @param query
  */
 export function getAllAppResourceIDsVisibleToInvitedUser(
+    api: API,
     id: string,
     query: GetAllAppResourceIDsVisibleToInvitedUserQuery
 ): Promise<UserInvitationVisibleAppsLinkagesResponse> {
-    return v1.GET(`/userInvitations/${id}/relationships/visibleApps`, {
+    return GET(api, `/userInvitations/${id}/relationships/visibleApps`, {
         query,
     })
 }

@@ -1,17 +1,17 @@
+import { Data, Links, ResourceType } from '../../../data'
 import {
-    PagingInformation,
-    ResourceLinks,
     DocumentLinks,
     PagedDocumentLinks,
+    PagingInformation,
+    ResourceLinks,
 } from '../../../paging'
-import { Data, Links, ResourceType } from '../../../data'
-import { BetaBuildLocalization } from '../beta-build-localizations/types'
-import { BetaAppReviewSubmission } from '../beta-app-review-submissions/types'
+import { AppEncryptionDeclaration } from '../app-encryption-declarations/types'
 import { App } from '../apps/types'
+import { BetaAppReviewSubmission } from '../beta-app-review-submissions/types'
+import { BetaBuildLocalization } from '../beta-build-localizations/types'
+import { BetaTester } from '../beta-testers/types'
 import { BuildBetaDetail } from '../build-beta-details/types'
 import { PrereleaseVersion } from '../prerelease-versions/types'
-import { BetaTester } from '../beta-testers/types'
-import { AppEncryptionDeclaration } from '../app-encryption-declarations/types'
 
 /**
  * The data structure that represents the resource.

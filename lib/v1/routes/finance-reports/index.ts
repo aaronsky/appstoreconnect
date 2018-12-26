@@ -1,5 +1,5 @@
 import { Gunzip } from 'zlib'
-import api from '../../'
+import { API, GET } from '../../../api'
 import { GetFinanceReportsQuery, GetSalesReportsQuery } from './types'
 
 /**
@@ -7,9 +7,10 @@ import { GetFinanceReportsQuery, GetSalesReportsQuery } from './types'
  * @param query
  */
 export function downloadFinancialReports(
+    api: API,
     query: GetFinanceReportsQuery
 ): Promise<Gunzip> {
-    return api.GET('/financeReports', { query })
+    return GET(api, '/financeReports', { query })
 }
 
 /**
@@ -17,7 +18,8 @@ export function downloadFinancialReports(
  * @param query
  */
 export function downloadSalesReports(
+    api: API,
     query: GetSalesReportsQuery
 ): Promise<Gunzip> {
-    return api.GET('/salesReports', { query })
+    return GET(api, '/salesReports', { query })
 }

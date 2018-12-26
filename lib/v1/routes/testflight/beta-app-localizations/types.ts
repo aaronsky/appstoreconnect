@@ -1,11 +1,11 @@
+import { Locale } from '../../..'
+import { Data, Links, ResourceType } from '../../../data'
 import {
+    DocumentLinks,
     PagedDocumentLinks,
     PagingInformation,
     ResourceLinks,
-    DocumentLinks,
 } from '../../../paging'
-import { Data, ResourceType, Links } from '../../../data'
-import { Locale } from '../../..'
 import { App } from '../apps/types'
 
 /**

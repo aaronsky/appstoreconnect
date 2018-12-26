@@ -1,10 +1,10 @@
+import { Data, Links, ResourceType } from '../../data'
 import {
-    PagingInformation,
     DocumentLinks,
     PagedDocumentLinks,
+    PagingInformation,
     ResourceLinks,
 } from '../../paging'
-import { Data, Links, ResourceType } from '../../data'
 import { App } from '../testflight/apps/types'
 
 /**

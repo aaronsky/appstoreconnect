@@ -1,20 +1,23 @@
-import v1 from '../../'
+import { AppType, UserType } from '../..'
+import { API, DELETE, GET, PATCH, POST } from '../../../api'
+import { AppsResponse } from '../testflight/apps/types'
 import {
-    UsersResponse,
     UserResponse,
+    UsersResponse,
     UserUpdateRequest,
     UserVisibleAppsLinkagesRequest,
     UserVisibleAppsLinkagesResponse,
 } from './types'
-import { AppType, UserType } from '../..'
-import { AppsResponse } from '../testflight/apps/types'
 
 /**
  * Get a list of the users on your team.
  * @param query
  */
-export function listUsers(query: ListUsersQuery): Promise<UsersResponse> {
-    return v1.GET('/users', { query })
+export function listUsers(
+    api: API,
+    query: ListUsersQuery
+): Promise<UsersResponse> {
+    return GET(api, '/users', { query })
 }
 
 /**
@@ -23,10 +26,11 @@ export function listUsers(query: ListUsersQuery): Promise<UsersResponse> {
  * @param query
  */
 export function readUserInformation(
+    api: API,
     id: string,
     query: ReadUserInformationQuery
 ): Promise<UserResponse> {
-    return v1.GET(`/users/${id}`, { query })
+    return GET(api, `/users/${id}`, { query })
 }
 
 /**
@@ -35,18 +39,19 @@ export function readUserInformation(
  * @param body
  */
 export function modifyUserAccount(
+    api: API,
     id: string,
     body: UserUpdateRequest
 ): Promise<UserResponse> {
-    return v1.PATCH(`/users/${id}`, { body })
+    return PATCH(api, `/users/${id}`, { body })
 }
 
 /**
  * Remove a user from your team.
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
-export function removeUserAccount(id: string): Promise<void> {
-    return v1.DELETE(`/users/${id}`)
+export function removeUserAccount(api: API, id: string): Promise<void> {
+    return DELETE(api, `/users/${id}`)
 }
 
 /**
@@ -55,10 +60,11 @@ export function removeUserAccount(id: string): Promise<void> {
  * @param query
  */
 export function listAllAppsVisibleToUser(
+    api: API,
     id: string,
     query: ListAllAppsVisibleToUserQuery
 ): Promise<AppsResponse> {
-    return v1.GET(`/users/${id}/visibleApps`, { query })
+    return GET(api, `/users/${id}/visibleApps`, { query })
 }
 
 /**
@@ -67,10 +73,11 @@ export function listAllAppsVisibleToUser(
  * @param query
  */
 export function getAllVisibleAppResourceIDsForUser(
+    api: API,
     id: string,
     query: GetAllVisibleAppResourceIDsForUserQuery
 ): Promise<UserVisibleAppsLinkagesResponse> {
-    return v1.GET(`/users/${id}/relationships/visibleApps`, { query })
+    return GET(api, `/users/${id}/relationships/visibleApps`, { query })
 }
 
 /**
@@ -79,10 +86,11 @@ export function getAllVisibleAppResourceIDsForUser(
  * @param body
  */
 export function addVisibleAppsToUser(
+    api: API,
     id: string,
     body: UserVisibleAppsLinkagesRequest
 ): Promise<void> {
-    return v1.POST(`/users/${id}/relationships/visibleApps`, { body })
+    return POST(api, `/users/${id}/relationships/visibleApps`, { body })
 }
 
 /**
@@ -91,18 +99,19 @@ export function addVisibleAppsToUser(
  * @param body
  */
 export function replaceListOfVisibleAppsForUser(
+    api: API,
     id: string,
     body: UserVisibleAppsLinkagesRequest
 ): Promise<void> {
-    return v1.PATCH(`/users/${id}/relationships/visibleApps`, { body })
+    return PATCH(api, `/users/${id}/relationships/visibleApps`, { body })
 }
 
 /**
  * Remove a user on your team’s access to one or more apps.
  * @param id An opaque resource ID that uniquely identifies the resource.
  */
-export function removeVisibleAppsFromUser(id: string): Promise<void> {
-    return v1.DELETE(`/users/${id}/relationships/visibleApps`)
+export function removeVisibleAppsFromUser(api: API, id: string): Promise<void> {
+    return DELETE(api, `/users/${id}/relationships/visibleApps`)
 }
 
 interface ListUsersQuery {

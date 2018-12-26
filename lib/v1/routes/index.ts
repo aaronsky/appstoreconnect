@@ -1,12 +1,6 @@
-import { API } from '../../api'
-import * as testflight from './testflight'
-import * as users from './users'
-import * as userInvitations from './user-invitations'
 import * as financeReports from './finance-reports'
+import * as testflight from './testflight'
+import * as userInvitations from './user-invitations'
+import * as users from './users'
 
-export function routes(api: API) {
-    api.routes('testflight', testflight)
-    api.routes('users', users)
-    api.routes('userInvitations', userInvitations)
-    api.routes('financeReports', financeReports)
-}
+export { testflight, users, userInvitations, financeReports }

@@ -1,13 +1,13 @@
-import { ResourceType, Links, Data } from '../../../data'
+import { Data, Links, ResourceType } from '../../../data'
 import {
-    ResourceLinks,
-    PagingInformation,
-    PagedDocumentLinks,
     DocumentLinks,
+    PagedDocumentLinks,
+    PagingInformation,
+    ResourceLinks,
 } from '../../../paging'
 import { App } from '../apps/types'
-import { Build } from '../builds/types'
 import { BetaGroup } from '../beta-groups/types'
+import { Build } from '../builds/types'
 
 /**
  * The data structure that represents the resource.

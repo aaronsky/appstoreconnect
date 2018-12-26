@@ -1,21 +1,23 @@
+import { AppEncryptionDeclarationType, AppType } from '../../..'
+import { API, GET, POST } from '../../../../api'
+import { ResourceType } from '../../../data'
+import { AppResponse } from '../apps/types'
 import {
-    AppEncryptionDeclarationBuildsLinkagesRequest,
     AppEncryptionDeclarationAppLinkageResponse,
+    AppEncryptionDeclarationBuildsLinkagesRequest,
     AppEncryptionDeclarationResponse,
     AppEncryptionDeclarationsResponse,
 } from './types'
-import { AppResponse } from '../apps/types'
-import v1, { AppEncryptionDeclarationType, AppType } from '../../..'
-import { ResourceType } from '../../../data'
 
 /**
  * Find and list all available app encryption declarations.
  * @param query
  */
 export function listAppEncryptionDeclarations(
+    api: API,
     query: ListAppEncryptionDeclarationsQuery
 ): Promise<AppEncryptionDeclarationsResponse> {
-    return v1.GET(`/appEncryptionDeclarations`, { query })
+    return GET(api, `/appEncryptionDeclarations`, { query })
 }
 
 /**
@@ -24,10 +26,11 @@ export function listAppEncryptionDeclarations(
  * @param query
  */
 export function readAppEncryptionDeclarationInformation(
+    api: API,
     id: string,
     query: ReadAppEncryptionDeclarationInformationQuery
 ): Promise<AppEncryptionDeclarationResponse> {
-    return v1.GET(`/appEncryptionDeclarations/${id}`, { query })
+    return GET(api, `/appEncryptionDeclarations/${id}`, { query })
 }
 
 /**
@@ -36,10 +39,11 @@ export function readAppEncryptionDeclarationInformation(
  * @param query
  */
 export function readAppInformationForAppEncryptionDeclaration(
+    api: API,
     id: string,
     query: ReadAppInformationForAppEncryptionDeclarationQuery
 ): Promise<AppResponse> {
-    return v1.GET(`/appEncryptionDeclarations/${id}/app`, { query })
+    return GET(api, `/appEncryptionDeclarations/${id}/app`, { query })
 }
 
 /**
@@ -48,9 +52,10 @@ export function readAppInformationForAppEncryptionDeclaration(
 
  */
 export function getAppResourceIDForAppEncryptionDeclaration(
+    api: API,
     id: string
 ): Promise<AppEncryptionDeclarationAppLinkageResponse> {
-    return v1.GET(`/appEncryptionDeclarations/${id}/relationships/app`)
+    return GET(api, `/appEncryptionDeclarations/${id}/relationships/app`)
 }
 
 /**
@@ -59,10 +64,11 @@ export function getAppResourceIDForAppEncryptionDeclaration(
  * @param body
  */
 export function assignBuildsToAppEncryptionDeclaration(
+    api: API,
     id: string,
     body: AppEncryptionDeclarationBuildsLinkagesRequest
 ): Promise<void> {
-    return v1.POST(`/appEncryptionDeclarations/${id}/relationships/builds`, {
+    return POST(api, `/appEncryptionDeclarations/${id}/relationships/builds`, {
         body,
     })
 }

@@ -1,8 +1,19 @@
-import { makeAPI } from '../api'
-import { routes as applyRoutes } from './routes'
+import * as api from '../api'
+import * as routes from './routes'
 
-const v1 = makeAPI('https://api.appstoreconnect.apple.com/v1', applyRoutes)
-export default v1
+const V1_BASEURL = 'https://api.appstoreconnect.apple.com/v1'
+
+export function v1(token?: api.Token) {
+    return api.makeAPI(V1_BASEURL, token)
+}
+export namespace v1 {
+    export const testflight = routes.testflight
+    export const users = routes.users
+    export const userInvitations = routes.userInvitations
+    export const financeReports = routes.financeReports
+    export const token = api.token
+    export const tokenAsync = api.tokenAsync
+}
 
 export type AppType =
     | 'betaAppLocalizations'
