@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs')
 const path = require('path')
 const { env } = require('process')
-const { v1: asc } = require('../dist')
+const { v1 } = require('../dist')
 
 let privateKey
 if (env.ASC_PRIVATE_KEY) {
@@ -14,9 +14,9 @@ if (env.ASC_PRIVATE_KEY) {
 const kid = env.ASC_KEY_ID || ''
 const issuerId = env.ASC_ISSUER_ID || ''
 
-const token = asc.token(privateKey, issuerId, kid)
-const api = asc(token)
-asc.testflight
+const token = v1.token(privateKey, issuerId, kid)
+const api = v1(token)
+v1.testflight
     .listBuilds(api, {})
     .then(c => {
         console.log(JSON.stringify(c))
