@@ -1,7 +1,4 @@
 .vscode/
-.gitignore
-.npmignore
 .prettierrc
 *.json
 *.md
-LICENSE
