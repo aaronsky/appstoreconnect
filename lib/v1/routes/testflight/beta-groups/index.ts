@@ -273,7 +273,18 @@ interface ListBetaGroupsQuery {
     /**
      * Attributes by which to sort.
      */
-    sort?: 'createdDate, +createdDate, -createdDate, name, +name, -name, publicLinkEnabled, +publicLinkEnabled, -publicLinkEnabled, publicLinkLimit, +publicLinkLimit, -publicLinkLimit'
+    sort?:
+        | 'createdDate, +createdDate'
+        | '-createdDate'
+        | 'name'
+        | '+name'
+        | '-name'
+        | 'publicLinkEnabled'
+        | '+publicLinkEnabled'
+        | '-publicLinkEnabled'
+        | 'publicLinkLimit'
+        | '+publicLinkLimit'
+        | '-publicLinkLimit'
 }
 
 interface ReadBetaGroupInformationQuery {

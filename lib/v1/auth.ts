@@ -1,17 +1,19 @@
 import jwt from 'jsonwebtoken'
 
+const jwtOptions = (iss: string, kid: string) => ({
+    algorithm: 'ES256',
+    keyid: kid,
+    audience: 'appstoreconnect-v1',
+    expiresIn: 1200,
+    issuer: iss,
+})
+
 export function token(
     privateKey: jwt.Secret,
     issuerId: string,
     keyId: string
 ): string {
-    return jwt.sign({}, privateKey, {
-        algorithm: 'ES256',
-        keyid: keyId,
-        audience: 'appstoreconnect-v1',
-        expiresIn: 1200,
-        issuer: issuerId,
-    })
+    return jwt.sign({}, privateKey, jwtOptions(issuerId, keyId))
 }
 
 export function tokenAsync(
@@ -20,23 +22,12 @@ export function tokenAsync(
     keyId: string
 ): Promise<string> {
     return new Promise((resolve, reject) => {
-        jwt.sign(
-            {},
-            privateKey,
-            {
-                algorithm: 'ES256',
-                keyid: keyId,
-                audience: 'appstoreconnect-v1',
-                expiresIn: 1200,
-                issuer: issuerId,
-            },
-            (err: Error, token: string) => {
-                if (err) {
-                    reject(err)
-                    return
-                }
-                resolve(token)
+        jwt.sign({}, privateKey, jwtOptions(issuerId, keyId), (err, token) => {
+            if (err) {
+                reject(err)
+                return
             }
-        )
+            resolve(token)
+        })
     })
 }
