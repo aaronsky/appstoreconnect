@@ -34,3 +34,19 @@ This is an ongoing work in progress so I don't have a ton of examples yet. If yo
 ## License
 
 This code is licensed under the [MIT License](./LICENSE). 
+
+## TODO
+
+- [ ] Fully stub App Store Connect API
+  - [x] Confirm basic functionality
+  - [ ] Confirm complex edge cases (complex queries, mutating calls, non-JSON responses, etc.)
+  - [ ] Determine work involved in stubbing a v2 API and compatibility between different components
+- [ ] Testing
+  - [ ] Write end-to-end tests to confirm interface and design
+  - [ ] Write unit tests for individual, internal components
+  - [ ] Run tests on CI
+- [ ] Improve documentation
+  - [ ] Add more examples
+  - [ ] Improve code comments around API surface
+  - [ ] Update README
+  - [ ] Produce API reference site when new tags are pushed
