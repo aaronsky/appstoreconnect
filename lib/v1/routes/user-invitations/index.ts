@@ -34,15 +34,13 @@ export function readUserInvitationInformation(
 
 /**
  * Invite a user with assigned user roles to join your team.
- * @param id An opaque resource ID that uniquely identifies the resource.
  * @param body
  */
 export function inviteUser(
     api: API,
-    id: string,
     body: UserInvitationCreateRequest
 ): Promise<UserInvitationResponse> {
-    return POST(api, `/userInvitations/${id}`, { body })
+    return POST(api, `/userInvitations`, { body })
 }
 
 /**
