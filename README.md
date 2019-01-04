@@ -4,6 +4,7 @@
 
 [![@latest](https://img.shields.io/npm/v/appstoreconnect.svg)](https://www.npmjs.com/package/appstoreconnect)
 [![Build Status](https://travis-ci.org/aaronsky/appstoreconnect.svg?branch=master)](https://travis-ci.org/aaronsky/appstoreconnect)
+[![install size](https://packagephobia.now.sh/badge?p=appstoreconnect)](https://packagephobia.now.sh/result?p=appstoreconnect)
 
 ## Installation
 
@@ -21,9 +22,10 @@ import { v1 } from 'appstoreconnect'
 
 // Read .p8 private key from disk or from environment, and supply the issuer ID and key identifier as outlined here:
 // https://developer.apple.com/documentation/appstoreconnectapi/generating_tokens_for_api_requests
-const privateKey = //...
-const issuerId = //...
-const keyId = //...
+const privateKey = '' // replace with the contents of your private key
+const issuerId = '' // replace with your issuer ID
+const keyId = '' // replace with your key ID
+
 const token = v1.token(privateKey, issuerId, keyId)
 
 // Initialize the service. Passing the token up-front is optional, but should be done before any API calls are made.

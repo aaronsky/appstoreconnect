@@ -1,13 +1,13 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "target": "es2017",
-        "strict": true,
-        "declaration": true,
-        "outDir": "dist"
-    },
-    "compileOnSave": true,
-    "include": ["lib/**/*.ts", "lib/**/*.d.ts"],
-    "exclude": ["node_modules", "dist", "examples"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es2017",
+    "strict": true,
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "compileOnSave": true,
+  "include": ["lib/**/*.ts", "lib/**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "examples", "test"]
 }
