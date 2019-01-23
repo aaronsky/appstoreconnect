@@ -83,8 +83,9 @@ async function call<T>(
             method,
             headers: api.token
                 ? {
-                      Authorization: `Bearer ${api.token}`,
-                  }
+                    Authorization: `Bearer ${api.token}`,
+                    'Content-Type': 'application/json',
+                }
                 : undefined,
             query: query(options.query),
             body: options.body && JSON.stringify(options.body),
