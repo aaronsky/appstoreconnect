@@ -8,8 +8,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "ava",
-    "prepare" : "npm run build"
+    "test": "ava"
   },
   "author": "Aaron Sky <aaronsky@skyaaron.com>",
   "license": "MIT",
