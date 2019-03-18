@@ -3,6 +3,8 @@ import { DateTime } from 'luxon'
 import qs from 'qs'
 import { URL } from 'url'
 import { ErrorResponse } from '../v1/error'
+import { OutgoingHttpHeaders } from 'http'
+import zlib from 'zlib'
 
 export interface API {
     baseUrl: string
@@ -22,9 +24,15 @@ export class APIError extends Error {
     }
 }
 
+export enum ContentType {
+    JSON = 'application/json',
+    GZIP = 'application/a-gzip',
+}
+
 interface APIOptions {
     query?: object
     body?: object
+    contentType?: ContentType
 }
 
 export function HEAD<T>(
@@ -81,26 +89,46 @@ async function call<T>(
         rawResponse = await got(path, {
             baseUrl: api.baseUrl,
             method,
-            headers: api.token
-                ? {
-                      Authorization: `Bearer ${api.token}`,
-                  }
-                : undefined,
+            headers: headers(api.token, options.contentType),
             query: query(options.query),
-            body: options.body && JSON.stringify(options.body),
+            body: body(options.body),
         })
     } catch (error) {
         throw new Error(error.response.body)
     }
 
-    const { body, ...response } = rawResponse
+    const { body: responseBody, ...response } = rawResponse
 
     if (!body) {
-        throw new Error(`${response.statusCode} Service provided no response.`)
-    } else if (typeof body !== 'string') {
-        return body
+        return (undefined as unknown) as T
+    } else if (options.contentType === ContentType.GZIP) {
+        return (body as unknown) as T
+    } else {
+        return json(responseBody, response)
     }
+}
 
+function headers(
+    token: string | null,
+    contentType: ContentType = ContentType.JSON
+): OutgoingHttpHeaders {
+    const defaultHeaders: OutgoingHttpHeaders = {
+        'content-type': contentType,
+    }
+    let headers = defaultHeaders
+    if (token) {
+        headers = {
+            ...headers,
+            authorization: `Bearer ${token}`,
+        }
+    }
+    return headers
+}
+
+function json(
+    body: any,
+    response: { statusCode?: number; statusMessage?: string }
+) {
     let json
     try {
         json = JSON.parse(body, jsonParser)
@@ -177,4 +205,13 @@ function sanitize(object: object): object {
         }
     }
     return object
+}
+
+function body(object: object | undefined): string | undefined {
+    if (object === undefined) {
+        return
+    }
+    const json = JSON.stringify(object)
+    console.log(json)
+    return json
 }

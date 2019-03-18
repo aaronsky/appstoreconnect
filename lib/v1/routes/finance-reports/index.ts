@@ -1,4 +1,4 @@
-import { API, GET } from '../../../api'
+import { API, GET, ContentType } from '../../../api'
 
 /**
  * Download finance reports filtered by your specified criteria.
@@ -8,7 +8,7 @@ export function downloadFinancialReports(
     api: API,
     query: GetFinanceReportsQuery
 ): Promise<Buffer> {
-    return GET(api, '/financeReports', { query })
+    return GET(api, '/financeReports', { query, contentType: ContentType.GZIP })
 }
 
 /**
@@ -19,7 +19,7 @@ export function downloadSalesReports(
     api: API,
     query: GetSalesReportsQuery
 ): Promise<Buffer> {
-    return GET(api, '/salesReports', { query })
+    return GET(api, '/salesReports', { query, contentType: ContentType.GZIP })
 }
 
 import { DateTime } from 'luxon'
