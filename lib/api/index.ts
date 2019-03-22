@@ -131,6 +131,9 @@ function json(
 ) {
     let json
     try {
+        if(body.length===0){
+            body=body+"{}"; //this prevents an exception if the body length is zero (HTTP 204)   
+        }
         json = JSON.parse(body, jsonParser)
     } catch (jsonError) {
         throw jsonError
