@@ -8,7 +8,7 @@ import {
 /**
  * Enable a capability for a bundle ID.
  */
-export async function enableCapability(
+export function enableCapability(
     api: API,
     body: BundleIdCapabilityCreateRequest
 ): Promise<BundleIdCapabilityResponse> {
@@ -18,14 +18,14 @@ export async function enableCapability(
 /**
  * Disable a capability for a bundle ID.
  */
-export async function disableCapability(api: API, id: string): Promise<void> {
+export function disableCapability(api: API, id: string): Promise<void> {
     return DELETE(api, `/bundleIdCapabilities/${id}`)
 }
 
 /**
  * Update the configuration of a specific capability.
  */
-export async function modifyCapabilityConfiguration(
+export function modifyCapabilityConfiguration(
     api: API,
     id: string,
     body: BundleIdCapabilityUpdateRequest

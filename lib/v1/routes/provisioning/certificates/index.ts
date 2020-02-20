@@ -9,7 +9,7 @@ import {
 /**
  * Create a new certificate using a certificate signing request.
  */
-export async function createCertificate(
+export function createCertificate(
     api: API,
     body: CertificateCreateRequest
 ): Promise<CertificateResponse> {
@@ -19,7 +19,7 @@ export async function createCertificate(
 /**
  * Find and list certificates and download their data.
  */
-export async function listAndDownloadCertificates(
+export function listAndDownloadCertificates(
     api: API,
     query: ListAndDownloadCertificatesQuery
 ): Promise<CertificatesResponse> {
@@ -29,7 +29,7 @@ export async function listAndDownloadCertificates(
 /**
  * Get information about a certificate and download the certificate data.
  */
-export async function readAndDownloadCertificateInformation(
+export function readAndDownloadCertificateInformation(
     api: API,
     id: string,
     query: ReadAndDownloadCertificateInformationQuery
@@ -40,7 +40,7 @@ export async function readAndDownloadCertificateInformation(
 /**
  * Get information about a certificate and download the certificate data.
  */
-export async function revokeCertificate(api: API, id: string): Promise<void> {
+export function revokeCertificate(api: API, id: string): Promise<void> {
     return DELETE(api, `/certificates/${id}`)
 }
 
