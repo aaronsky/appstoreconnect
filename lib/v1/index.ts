@@ -8,6 +8,7 @@ export function v1(token?: string) {
     return api.makeAPI(V1_BASEURL, token)
 }
 export namespace v1 {
+    export const provisioning = routes.provisioning
     export const testflight = routes.testflight
     export const users = routes.users
     export const userInvitations = routes.userInvitations
