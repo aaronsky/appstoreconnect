@@ -71,6 +71,11 @@ export interface CapabilitySetting {
     minInstances?: number
 }
 
+export interface BundleIdCapabilityAttributes {
+    capabilityType?: CapabilityType
+    settings?: CapabilitySetting[]
+}
+
 /**
  * The data structure that represents the resource.
  */
@@ -78,10 +83,7 @@ export interface BundleIdCapability {
     /**
      * The resource's attributes.
      */
-    attributes?: {
-        capabilityType?: CapabilityType
-        settings?: CapabilitySetting[]
-    }
+    attributes?: BundleIdCapabilityAttributes
     /**
      * The opaque resource ID that uniquely identifies the resource.
      */

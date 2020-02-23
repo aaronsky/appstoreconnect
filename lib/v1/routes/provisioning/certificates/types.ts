@@ -18,16 +18,24 @@ export enum CertificateType {
     DEVELOPER_ID_APPLICATION = 'DEVELOPER_ID_APPLICATION',
 }
 
+export interface CertificateAttributes {
+    certificateContent?: string
+    displayName?: string
+    expirationDate?: DateTime
+    name?: string
+    platform?: BundleIdPlatform
+    serialNumber?: string
+    certificateType?: CertificateType
+}
+
+/**
+ * The data structure that represents the resource.
+ */
 export interface Certificate {
-    attributes?: {
-        certificateContent?: string
-        displayName?: string
-        expirationDate?: DateTime
-        name?: string
-        platform?: BundleIdPlatform
-        serialNumber?: string
-        certificateType?: CertificateType
-    }
+    /**
+     * The resource's attributes.
+     */
+    attributes?: CertificateAttributes
     /**
      * The opaque resource ID that uniquely identifies the resource.
      */
